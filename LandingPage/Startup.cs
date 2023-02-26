@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Persistence.Context;
+using Persistence.Repositories;
 
 namespace LandingPage
 {
@@ -19,6 +22,14 @@ namespace LandingPage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddDbContext<ApplicationDbContext>(
+                options =>
+                {
+                    var conn = Configuration.GetConnectionString("DefaultConnection");
+                    options.UseSqlServer(conn);
+                }
+            );
+            services.AddScoped(typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
