@@ -1,0 +1,47 @@
+﻿@page
+@model PlantShop.Pages.Categories.EditModel
+@{
+	ViewData["title"] = "Edit";
+}
+
+<form method="post">
+	<input hidden asp-for="Category.Id" />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary pl-3">Edit Category</h2>
+            <hr />
+		</div>
+		<div asp-validation-summary="All"></div>
+		<div class="mb-3">
+			<label asp-for="Category.Name"></label>
+			<input asp-for="Category.Name" class="form-control" />
+			<span asp-validation-for="Category.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Category.Description"></label>
+			<input asp-for="Category.Description" class="form-control" />
+			<span asp-validation-for="Category.Description" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Category.CreatedAt"></label>
+			<input asp-for="Category.CreatedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Category.ModifiedAt"></label>
+			<input asp-for="Category.ModifiedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Category.DeletedAt"></label>
+			<input asp-for="Category.DeletedAt" class="form-control" readonly />
+		</div>
+		<button type="submit" class="btn btn-primary" style="width:150px;">Update</button>
+		<a asp-page="Index" class="btn btn-secondary"  style="width:150px;"> Back to List</a>
+	</div>
+	
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/>
+	}
+}

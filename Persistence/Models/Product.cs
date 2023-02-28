@@ -21,8 +21,6 @@ namespace Persistence.Models
         public int? DiscountId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
-        public DateTime? DeletedAt { get; set; }
-
         public virtual ProductCategory Category { get; set; }
         public virtual ProductDiscount Discount { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }

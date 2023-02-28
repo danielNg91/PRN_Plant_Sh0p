@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Persistence.Context;
 using Persistence.Repositories;
 
-namespace LandingPage
+namespace PlantShop
 {
     public class Startup
     {
