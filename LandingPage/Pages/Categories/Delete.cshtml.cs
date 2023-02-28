@@ -25,8 +25,7 @@ namespace PlantShop.Pages.Categories
             var category = await _categoryRepository.FindByIdAsync(Category.Id);
             if (category != null)
             {
-                category.DeletedAt = System.DateTime.Now;
-                await _categoryRepository.UpdateAsync(category);
+                await _categoryRepository.SoftDeleteAsync(category);
                 TempData["success"] = "Category deleted successfully";
                 return RedirectToPage("Index");
             }

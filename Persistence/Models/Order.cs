@@ -16,8 +16,6 @@ namespace Persistence.Models
         public decimal Total { get; set; }
         public bool PaymentStatus { get; set; }
         public string DeliveryStatus { get; set; }
-        public DateTime? CreatedAt { get; set; }
-
         public virtual User User { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }

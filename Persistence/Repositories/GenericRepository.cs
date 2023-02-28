@@ -36,20 +36,21 @@ namespace Persistence.Repositories
         }
         public virtual async Task CreateAsync(T entity)
         {
+            entity.CreatedAt = System.DateTime.Now;
+            entity.ModifiedAt = System.DateTime.Now;
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task DeleteAsync(T _entity)
+        public virtual async Task DeleteAsync(T entity)
         {
-            _dbSet.Remove(_entity);
+            _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
         }
-
-        public virtual async Task DeleteRangeAsync(IEnumerable<T> entities)
+        public virtual async Task SoftDeleteAsync(T entity)
         {
-            _dbSet.RemoveRange(entities);
-            await _context.SaveChangesAsync();
+            entity.DeletedAt = System.DateTime.Now;
+            await UpdateAsync(entity);
         }
 
         public virtual async Task<List<T>> ListAsync()
@@ -68,27 +69,16 @@ namespace Persistence.Repositories
             return list;
         }
 
-        public virtual async Task UpdateAsync(T updated)
+        public virtual async Task UpdateAsync(T entity)
         {
-            _context.Attach(updated).State = EntityState.Modified;
+            entity.ModifiedAt = System.DateTime.Now;
+            _context.Attach(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.AsQueryable().AsNoTracking().FirstOrDefaultAsync(predicate);
-        }
-
-        public async Task CreateRangeAsync(IEnumerable<T> entities)
-        {
-            await _context.AddRangeAsync(entities);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateRangeAsync(IEnumerable<T> entities)
-        {
-            _context.UpdateRange(entities);
-            await _context.SaveChangesAsync();
         }
     }
 }

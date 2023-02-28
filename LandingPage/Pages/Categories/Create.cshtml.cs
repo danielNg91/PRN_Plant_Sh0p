@@ -22,8 +22,6 @@ namespace PlantShop.Pages.Categories
         {
             if (ModelState.IsValid)
             {
-                Category.CreatedAt = System.DateTime.Now;
-                Category.ModifiedAt = System.DateTime.Now;
                 await _categoryRepository.CreateAsync(Category);
                 TempData["success"] = "Product created successfully";
                 return RedirectToPage("Index");

@@ -26,7 +26,6 @@ namespace PlantShop.Pages.Categories
         {
             if (ModelState.IsValid)
             {
-                Category.ModifiedAt = System.DateTime.Now;
                 await _categoryRepository.UpdateAsync(Category);
                 TempData["success"] = "Category updated successfully";
                 return RedirectToPage("Index");
