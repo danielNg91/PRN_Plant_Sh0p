@@ -1,16 +1,16 @@
 ﻿@page
-@model PlantShop.Pages.Products.CreateModel
+@model PlantShop.Pages.Products.EditModel
 @{
-    ViewData["title"] = "Create";
+    ViewData["title"] = "Edit";
 }
 
 <form method="post">
+    <input hidden asp-for="Product.Id" />
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary pl-3">Create Product</h2>
+            <h2 class="text-primary pl-3">Edit Product</h2>
             <hr />
         </div>
-        <div asp-validation-summary="All"></div>
         <div class="mb-3">
             <label asp-for="Product.Name"></label>
             <input asp-for="Product.Name" class="form-control" />
@@ -41,9 +41,20 @@
             <input asp-for="Product.DiscountId" class="form-control" />
             <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
+        <div class="mb-3">
+            <label asp-for="Product.CreatedAt"></label>
+            <input asp-for="Product.CreatedAt" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.ModifiedAt"></label>
+            <input asp-for="Product.ModifiedAt" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.DeletedAt"></label>
+            <input asp-for="Product.DeletedAt" class="form-control" readonly />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Update</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
-
     </div>
 
 </form>

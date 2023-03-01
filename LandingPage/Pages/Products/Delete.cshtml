@@ -1,0 +1,46 @@
+﻿@page
+@model PlantShop.Pages.Products.DeleteModel
+@{
+	ViewData["title"] = "Delete";
+}
+
+<form method="post">
+	<input hidden asp-for="Product.Id" />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary pl-3">Delete Product</h2>
+            <hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Product.Name"></label>
+			<input asp-for="Product.Name" class="form-control" />
+			<span asp-validation-for="Product.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Product.Description"></label>
+			<input asp-for="Product.Description" class="form-control" />
+			<span asp-validation-for="Product.Description" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Product.CreatedAt"></label>
+			<input asp-for="Product.CreatedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Product.ModifiedAt"></label>
+			<input asp-for="Product.ModifiedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Product.DeletedAt"></label>
+			<input asp-for="Product.DeletedAt" class="form-control" readonly />
+		</div>
+		<button type="submit" class="btn btn-danger" style="width:150px;">Delete</button>
+		<a asp-page="Index" class="btn btn-secondary"  style="width:150px;"> Back to List</a>
+	</div>
+	
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/>
+	}
+}
