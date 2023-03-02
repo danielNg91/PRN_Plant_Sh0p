@@ -25,9 +25,9 @@
             <label asp-for="Product.CategoryId"></label>
             @* <input asp-for="Product.CategoryId" class="form-control"/> *@
             <select asp-for="Product.CategoryId" class="form-control">
-                @foreach (var obj in Model.Categories)
+                @foreach (var category in Model.Categories)
                 {
-                    <option value="@obj.Id">@obj.Name</option>
+                    <option value="@category.Id">@category.Name</option>
                 }
             </select>
             <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
@@ -44,7 +44,13 @@
         </div>
         <div class="mb-3">
             <label asp-for="Product.DiscountId"></label>
-            <input asp-for="Product.DiscountId" class="form-control"/>
+            @* <input asp-for="Product.DiscountId" class="form-control"/> *@
+            <select asp-for="Product.DiscountId" class="form-control">
+                @foreach (var discount in Model.Discounts)
+                {
+                    <option value="@discount.Id">@discount.Name</option>
+                }
+            </select>
             <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
         </div>
         <div class="mb-3">

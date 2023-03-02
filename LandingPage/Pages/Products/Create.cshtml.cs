@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,17 +12,21 @@ namespace PlantShop.Pages.Products
     {
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _categoryRepository;
+        private readonly GenericRepository<ProductDiscount> _discountRepository;
         [BindProperty] public Product Product { get; set; }
         public IEnumerable<ProductCategory> Categories { get; set; }
+        public IEnumerable<ProductDiscount> Discounts { get; set; }
 
-        public CreateModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> categoryRepository)
+        public CreateModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> categoryRepository, GenericRepository<ProductDiscount> discountRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _discountRepository = discountRepository;
         }
         public async Task OnGetAsync()
         {
             Categories = await _categoryRepository.ListAsync();
+            Discounts = await _discountRepository.WhereAsync(x=>x.Active == true);
         }
         public async Task<IActionResult> OnPostAsync()
         {
