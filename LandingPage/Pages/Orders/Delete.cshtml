@@ -1,0 +1,56 @@
+﻿@page
+@model PlantShop.Pages.Orders.DeleteModel
+@{
+    ViewData["title"] = "Delete";
+}
+
+<form method="post">
+    <input hidden asp-for="Order.Id" />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Delete Order</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.UserId"></label>
+            <input asp-for="Order.UserId" class="form-control" />
+            <span asp-validation-for="Order.UserId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.Total"></label>
+            <input asp-for="Order.Total" class="form-control" />
+            <span asp-validation-for="Order.Total" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.PaymentStatus"></label>
+            <input asp-for="Order.PaymentStatus" class="form-control" />
+            <span asp-validation-for="Order.PaymentStatus" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.DeliveryStatus"></label>
+            <input asp-for="Order.DeliveryStatus" class="form-control" />
+            <span asp-validation-for="Order.DeliveryStatus" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.CreatedAt"></label>
+            <input asp-for="Order.CreatedAt" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.ModifiedAt"></label>
+            <input asp-for="Order.ModifiedAt" class="form-control" readonly />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.DeletedAt"></label>
+            <input asp-for="Order.DeletedAt" class="form-control" readonly />
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px;">Delete</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

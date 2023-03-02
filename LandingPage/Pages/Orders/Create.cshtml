@@ -1,0 +1,64 @@
+﻿@page
+@model PlantShop.Pages.Orders.CreateModel
+@{
+    ViewData["title"] = "Create";
+}
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Order</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Order.UserId"></label>
+            <input asp-for="Order.UserId" class="form-control" />
+            <span asp-validation-for="Order.UserId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.Total"></label>
+            <input asp-for="Order.Total" class="form-control" />
+            <span asp-validation-for="Order.Total" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.PaymentStatus"></label>
+            <input asp-for="Order.PaymentStatus" class="form-control" />
+            <span asp-validation-for="Order.PaymentStatus" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.DeliveryStatus"></label>
+            <input asp-for="Order.DeliveryStatus" class="form-control" />
+            <span asp-validation-for="Order.DeliveryStatus" class="text-danger"></span>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>OrderId</th>
+                        <th>ProductId</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var obj in Model.Items)
+                    {
+                        <tr>
+                            <td>AddLater</td>
+                        </tr>
+                    }*@
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

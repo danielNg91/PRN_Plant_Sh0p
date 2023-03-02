@@ -4,28 +4,28 @@ using Persistence.Models;
 using Persistence.Repositories;
 using System.Threading.Tasks;
 
-namespace PlantShop.Pages.Products
+namespace PlantShop.Pages.Orders
 {
     [BindProperties]
     public class DeleteModel : PageModel
     {
-        private readonly GenericRepository<Product> _productRepository;
-        public Product Product { get; set; }
+        private readonly GenericRepository<Order> _orderCategory;
+        public Order Order { get; set; }
 
-        public DeleteModel(GenericRepository<Product> productRepository)
+        public DeleteModel(GenericRepository<Order> orderCategory)
         {
-            _productRepository = productRepository;
+            _orderCategory = orderCategory;
         }
         public async Task OnGetAsync(int id)
         {
-            Product = await _productRepository.FindByIdAsync(id);
+            Order = await _orderCategory.FindByIdAsync(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var product = await _productRepository.FindByIdAsync(Product.Id);
-            if (product != null)
+            var order = await _orderCategory.FindByIdAsync(Order.Id);
+            if (order != null)
             {
-                await _productRepository.SoftDeleteAsync(product);
+                await _orderCategory.SoftDeleteAsync(order);
                 TempData["success"] = "Product deleted successfully";
                 return RedirectToPage("Index");
             }
