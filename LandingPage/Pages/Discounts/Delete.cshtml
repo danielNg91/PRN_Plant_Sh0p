@@ -1,0 +1,56 @@
+﻿@page
+@model PlantShop.Pages.Discounts.DeleteModel
+@{
+	ViewData["title"] = "Delete";
+}
+
+<form method="post">
+	<input hidden asp-for="Discount.Id" />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary pl-3">Delete Discount</h2>
+            <hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.Name"></label>
+			<input asp-for="Discount.Name" class="form-control" />
+			<span asp-validation-for="Discount.Name" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.Description"></label>
+			<input asp-for="Discount.Description" class="form-control" />
+			<span asp-validation-for="Discount.Description" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.DiscountPercent"></label>
+			<input asp-for="Discount.DiscountPercent" class="form-control" />
+			<span asp-validation-for="Discount.DiscountPercent" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.Active"></label>
+			<input asp-for="Discount.Active" class="form-control" />
+			<span asp-validation-for="Discount.Active" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.CreatedAt"></label>
+			<input asp-for="Discount.CreatedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.ModifiedAt"></label>
+			<input asp-for="Discount.ModifiedAt" class="form-control" readonly />
+		</div>
+		<div class="mb-3">
+			<label asp-for="Discount.DeletedAt"></label>
+			<input asp-for="Discount.DeletedAt" class="form-control" readonly />
+		</div>
+		<button type="submit" class="btn btn-danger" style="width:150px;">Delete</button>
+		<a asp-page="Index" class="btn btn-secondary"  style="width:150px;"> Back to List</a>
+	</div>
+	
+</form>
+
+@section Scripts{
+	@{
+		<partial name="_ValidationScriptsPartial"/>
+	}
+}

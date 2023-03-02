@@ -1,0 +1,45 @@
+﻿@page
+@model PlantShop.Pages.Discounts.CreateModel
+@{
+    ViewData["title"] = "Create";
+}
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Discount</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Discount.Name"></label>
+            <input asp-for="Discount.Name" class="form-control" />
+            <span asp-validation-for="Discount.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Discount.Description"></label>
+            <input asp-for="Discount.Description" class="form-control" />
+            <span asp-validation-for="Discount.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Discount.DiscountPercent"></label>
+            <input asp-for="Discount.DiscountPercent" class="form-control" />
+            <span asp-validation-for="Discount.DiscountPercent" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Discount.Active"></label>
+            <input asp-for="Discount.Active" class="form-control" />
+            <span asp-validation-for="Discount.Active" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
