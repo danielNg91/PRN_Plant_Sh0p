@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
@@ -9,15 +11,24 @@ namespace PlantShop.Pages.Products
     public class CreateModel : PageModel
     {
         private readonly GenericRepository<Product> _productRepository;
-        [BindProperty]
-        public Product Product { get; set; }
-        
-        public CreateModel(GenericRepository<Product> productRepository)
+        private readonly GenericRepository<ProductCategory> _categoryRepository;
+        private readonly GenericRepository<ProductDiscount> _discountRepository;
+        [BindProperty] public Product Product { get; set; }
+        public IEnumerable<ProductCategory> Categories { get; set; }
+        public IEnumerable<ProductDiscount> Discounts { get; set; }
+
+        public CreateModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> categoryRepository, GenericRepository<ProductDiscount> discountRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _discountRepository = discountRepository;
         }
-
-        public async  Task<IActionResult> OnPostAsync()
+        public async Task OnGetAsync()
+        {
+            Categories = await _categoryRepository.ListAsync();
+            Discounts = await _discountRepository.WhereAsync(x=>x.Active == true);
+        }
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {
@@ -25,6 +36,7 @@ namespace PlantShop.Pages.Products
                 TempData["success"] = "Product created successfully";
                 return RedirectToPage("Index");
             }
+
             return Page();
         }
     }

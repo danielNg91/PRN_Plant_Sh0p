@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
@@ -10,16 +11,25 @@ namespace PlantShop.Pages.Products
     public class EditModel : PageModel
     {
         private readonly GenericRepository<Product> _productRepository;
+        private readonly GenericRepository<ProductCategory> _categoryRepository;
+        private readonly GenericRepository<ProductDiscount> _discountRepository;
         [BindProperty]
         public Product Product { get; set; }
+        public IEnumerable<ProductCategory> Categories { get; set; }
+        public IEnumerable<ProductDiscount> Discounts { get; set; }
 
-        public EditModel(GenericRepository<Product> productRepository)
+        public EditModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> categoryRepository, GenericRepository<ProductDiscount> discountRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _discountRepository = discountRepository;
         }
+
         public async Task OnGetAsync(int id)
         {
             Product = await _productRepository.FindByIdAsync(id);
+            Categories = await _categoryRepository.ListAsync();
+            Discounts = await _discountRepository.WhereAsync(x=>x.Active == true);
         }
 
         public async Task<IActionResult> OnPostAsync()
