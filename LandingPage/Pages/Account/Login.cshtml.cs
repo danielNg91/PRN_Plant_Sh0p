@@ -40,8 +40,15 @@ namespace PlantShop.Pages.Login
                         new Claim(ClaimTypes.Role, user.IsAdmin ? nameof(Roles.Admin) : nameof(Roles.Customer))
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Products/Index");
+                    var authProperties = new AuthenticationProperties()
+                    {
+                        IsPersistent = Credential.RememberMe
+                    };
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
+                    return RedirectToPage("/Index");
                 }
             }
 
@@ -58,5 +65,6 @@ namespace PlantShop.Pages.Login
         public string UserName { get; set; }
         [Required, DataType(DataType.Password)]
         public string Password { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

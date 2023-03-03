@@ -36,6 +36,8 @@ namespace PlantShop
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
                 options.LoginPath = "/Account/Login";
                 options.AccessDeniedPath = "/Account/AccessDenied";
+                options.ExpireTimeSpan = System.TimeSpan.FromDays(2);
+                options.Cookie.HttpOnly = true;
             });
         }
     }

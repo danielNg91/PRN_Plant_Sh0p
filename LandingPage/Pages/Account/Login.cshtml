@@ -8,22 +8,29 @@
     @Model.Message
 </div>
 <form method="post">
-	<div class="border p-3 mt-4">
-		<div class="row pb-2">
-			<h2 class="text-primary pl-3">Login</h2>
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Login</h2>
             <hr />
-		</div>
-		<div class="mb-3">
-			<label asp-for="Credential.UserName"></label>
-			<input asp-for="Credential.UserName" class="form-control" />
-			<span asp-validation-for="Credential.UserName" class="text-danger"></span>
-		</div>
-		<div class="mb-3">
-			<label asp-for="Credential.Password"></label>
-			<input asp-for="Credential.Password" class="form-control" type="password" />
-			<span asp-validation-for="Credential.Password" class="text-danger"></span>
-		</div>
-		<button type="submit" class="btn btn-primary" style="width:150px;">Login</button>
-	</div>
-	
+        </div>
+        <div class="mb-3">
+            <label asp-for="Credential.UserName"></label>
+            <input asp-for="Credential.UserName" class="form-control" />
+            <span asp-validation-for="Credential.UserName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Credential.Password"></label>
+            <input asp-for="Credential.Password" class="form-control" type="password" />
+            <span asp-validation-for="Credential.Password" class="text-danger"></span>
+        </div>
+        <div class="row form-check mb-2">
+            <div class="col-2">
+                <input type="checkbox" asp-for="Credential.RememberMe" class="form-check-input" />
+                <label class="form-check-label" asp-for="Credential.RememberMe"></label>
+            </div>
+            <div class="col"></div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Login</button>
+    </div>
+
 </form>
