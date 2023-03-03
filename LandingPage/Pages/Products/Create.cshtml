@@ -53,14 +53,15 @@
                         <option value="@discount.Id">@discount.Name</option>
                     }
                 </select>
-            } else {
-                <select asp-for="Product.DiscountId" class="form-control" disabled/>
+            }
+            else
+            {
+                <select asp-for="Product.DiscountId" class="form-control"></select>
             }
             <span asp-validation-for="Product.DiscountId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
         <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
-
     </div>
 
 </form>
