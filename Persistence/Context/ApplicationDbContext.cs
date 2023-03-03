@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Persistence.Models;
 
 #nullable disable
@@ -26,7 +24,6 @@ namespace Persistence.Context
         public virtual DbSet<ProductDiscount> ProductDiscounts { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserCart> UserCarts { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

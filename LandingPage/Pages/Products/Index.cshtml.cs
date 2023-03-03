@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,13 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Persistence.Constants;
 
 namespace PlantShop.Pages.Products
 {
+    [Authorize(Policy = PolicyName.ADMIN)]
     public class CreateModel : PageModel
     {
         private readonly GenericRepository<Product> _productRepository;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
 namespace Persistence.Models
 {
+    [Table("OrderItem")]
     public partial class OrderItem : BaseEntity
     {
         public int OrderId { get; set; }

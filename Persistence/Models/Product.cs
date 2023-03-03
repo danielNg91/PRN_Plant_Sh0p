@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
 namespace Persistence.Models
 {
+    [Table("Product")]
     public partial class Product : BaseEntity
     {
         public Product()

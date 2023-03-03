@@ -21,7 +21,6 @@ namespace PlantShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(
                 options =>
                 {
@@ -29,11 +28,15 @@ namespace PlantShop
                     options.UseSqlServer(conn);
                 }
             );
+            services.AddAppAuthentication();
+            services.AddAppAuthorization();
+
+            // Di
             services.AddScoped(typeof(GenericRepository<>));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +54,7 @@ namespace PlantShop
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
