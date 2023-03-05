@@ -7,17 +7,6 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
@@ -71,8 +60,87 @@ body {
 }
 
 /*Override default CSS*/
+:root {
+  --font-family: 'Poppins', sans-serif;
+  --lightest: #fff;
+  --light: #F3F3F3;
+  --medium: #C4C4C4;
+  --dark: #444;
+  --darkest: #000;
+  --body-background: var(--lightest);
+  --body-color: var(--light);
+  --headings-font-weight: 700;
+
+  --primary: #fafafa;
+  --primary-hover: #729260;
+  --primary-contrast: #ffffff;
+  --primary-inverse: var(--lightest);
+
+  --secondary: #729260;
+  --secondary-hover: #3b5f33;
+  --secondary-contrast: #24431d;
+  --secondary-inverse: var(--lightest);
+
+  --info: #444;
+  --info-hover: rgb(100, 99, 99);
+  --info-contrast: rgb(100, 99, 99);
+  --info-inverse: var(--lightest);
+
+  --highlight: #ffffff;
+  --highlight-hover: #ececec;
+  --highlight-contrast: #ececec;
+  --highlight-inverse: var(--darkest);
+
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --dark: #343a40;
+  --white: #fff;
+}
 html, body {
-    background-color: #fafafa;
-    height: 100vh;
+    background-color: var(--primary);
+    /* height: 100vh; */
     font-family: Poppins;
+    color: var(--dark);
+}
+
+a {
+    color: var(--secondary);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--secondary);
+}
+
+.inverse {
+    font-size: 5vh;
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.btn-primary {
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+    color: var(--lightest);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-hover);
+    border-color: var(--secondary-hover);
+}
+
+.text-primary {
+    color: var(--secondary) !important;
+}
+
+.h2.inverse {
+    padding-left: 2vw;
 }
