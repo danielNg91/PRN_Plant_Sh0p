@@ -11,7 +11,7 @@
         <div class="font-weight-light inverse my-2" style="line-height: 1;">grows in your</div>
         <div class="font-weight-bolder flower font-italic">flowers</div>
         <hr/>
-        <button class="btn rounded-pill btn-outline-secondary btn-lg">SHOP NOW</button>
+        <a href="#product" class="btn rounded-pill btn-outline-secondary btn-lg">SHOP NOW</a>
     </div>
 </div>
 
@@ -22,19 +22,19 @@
         <h1>We are Dac, Tan, Thanh, Ha, and we sell <span class="font-italic">plants</span>.</h1>
         <div class="pt-3">We programmers care for you and our nature.</div>
         <div class="pb-5">That's why we created this page to sell you plants and spread the green.</div>
-            <button class="btn-outline-only rounded-pill btn-lg mx-3">Browse Plants</button>
-            <button class="btn-outline-only rounded-pill btn-lg mx-3">Go to Cart</button>
-            <button class="btn-outline-only rounded-pill btn-lg mx-3">About Us</button>
+            <a href="#product" class="btn btn-outline-only rounded-pill btn-lg mx-3">Browse Plants</a>
+            <a href="#cart" class="btn btn-outline-only rounded-pill btn-lg mx-3">Go to Cart</a>
+            <a href="#about" class="btn btn-outline-only rounded-pill btn-lg mx-3">About Us</a>
     </div>
 </div>
 
-<div class="d-flex py-4">
+<div class="d-flex py-4" id="product">
     
     <img class="logo" src="/img/plant.png" />
     <img class="logo" src="/img/plant.png" />
     <img class="logo" src="/img/plant.png" />
     <img class="logo" src="/img/plant.png" />
-    <h1 class="px-3 pt-1">Our Products</h1>
+    <h1 class="px-3 pt-2">Our Products</h1>
     <img class="logo" src="/img/plant.png" />
     <img class="logo" src="/img/plant.png" />
     <img class="logo" src="/img/plant.png" />
@@ -59,9 +59,10 @@
 
             @foreach (var disc in Model.ProductDiscounts)
             {
-                @if (@obj.DiscountId == @disc.Id && @disc.Active)
+                @if (@obj.DiscountId == @disc.Id && @disc.Active &&@disc.DiscountPercent > 0)
                 {
-                    <div class="lead" style="color:var(--primary)">Now only @Convert.ToInt32(@disc.DiscountPercent * @obj.Price) VND</div>
+                    <div class="lead" style="color:var(--primary)">Now only @Convert.ToInt32((1 - @disc.DiscountPercent) * @obj.Price) VND</div>
+                    <div class="inverse px-1" style="font-size: 3vh">Discount @disc.Name</div>
                 }
             }
                 
@@ -70,13 +71,34 @@
     </div>
 }
 
-
-<div class="d-flex">
-    <img class="rounded-circle" style="height:30vh" src="/img/dac.jpg" />
-    <img class="rounded-circle" style="height:30vh" src="/img/thanh.jpg" />
-    <img class="rounded-circle" style="height:30vh" src="/img/tan.jpg" />
-    <img class="rounded-circle" style="height:30vh" src="/img/ha.jpg" />
+<div class="py-5 text-center" style="background-color: #161618; color: var(--primary)" id="about">
+    <h1>Meet our team</h1>
+    <div class="font-italic pt-3">
+        Inspired by the subject PRN221 and its deadline, as well as nature, we created this online plant shop.
+    </div>
+    <div class="font-weight-bold mt-5">
+        Contact
+    </div>
+    <div>
+        Nguyen Tam Dac - dacntse150063@fpt.edu.vn
+    </div>
+    <div>
+        Le Canh Hoang Thanh - thanhlchse162020@fpt.edu.vn
+    </div>
+    <div>
+        Vo Minh Tan - tanvmse151408@fpt.edu.vn
+    </div>
+    <div>
+        Do Ngan Ha - hadnse161779@fpt.edu.vn
+    </div>
+    <div class="d-flex pt-5">
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/dac.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/thanh.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/tan.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/ha.jpg" />
+    </div>
 </div>
+
     
 <style>
     .plant-pot-img {
@@ -101,9 +123,11 @@
     .btn-outline-only:hover {
         background:rgba(224, 240, 218, 0.46);
     }
-
     .logo {
         height: 5vw;
+    }
+    .border-secondary {
+        border: 5px dashed var(--secondary);
     }
 
 </style>

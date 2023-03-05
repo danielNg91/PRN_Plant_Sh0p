@@ -4,33 +4,42 @@
     ViewData["Title"] = "Login page";
 }
 
-<div>
-    @Model.Message
-</div>
-<form method="post">
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary pl-3">Login</h2>
-            <hr />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Credential.UserName"></label>
-            <input asp-for="Credential.UserName" class="form-control" />
-            <span asp-validation-for="Credential.UserName" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Credential.Password"></label>
-            <input asp-for="Credential.Password" class="form-control" type="password" />
-            <span asp-validation-for="Credential.Password" class="text-danger"></span>
-        </div>
-        <div class="row form-check mb-2">
-            <div class="col-2">
-                <input type="checkbox" asp-for="Credential.RememberMe" class="form-check-input" />
-                <label class="form-check-label" asp-for="Credential.RememberMe"></label>
+<div class="d-flex w-100">
+    <img src="/img/login-img.jpg" style="object-fit: cover; height:78vh; width: 50%;"/>
+    <form method="post" class="w-50 px-5">
+        <div class="p-5 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary pl-3">Login</h2>
+                <hr />
             </div>
-            <div class="col"></div>
+            <div class="mb-3">
+                <label asp-for="Credential.UserName"></label>
+                <input asp-for="Credential.UserName" class="form-control" />
+                <span asp-validation-for="Credential.UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Credential.Password"></label>
+                <input asp-for="Credential.Password" class="form-control" type="password" />
+                <span asp-validation-for="Credential.Password" class="text-danger"></span>
+            </div>
+            <div class="row form-check mb-2">
+                <div class="col-12">
+                    <input type="checkbox" asp-for="Credential.RememberMe" class="form-check-input" />
+                    <label class="form-check-label" asp-for="Credential.RememberMe">Remember Me</label>
+                </div>
+                <div class="col"></div>
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill w-100" style="width:150px;">Login</button>
+            <a class="btn btn-link" asp-page="/Account/Signup">No account? Sign up here.</a>
+            <div>
+                @Model.Message
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px;">Login</button>
-    </div>
 
-</form>
+    </form>
+</div>
+<style>
+     .btn-link {
+        color: var(--secondary);
+    }
+</style>

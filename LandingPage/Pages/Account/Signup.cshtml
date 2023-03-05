@@ -1,0 +1,58 @@
+﻿@page
+@model PlantShop.Pages.Signup.IndexModel
+@{
+}
+<div class="d-flex w-100">
+    <img src="/img/login-img.jpg" style="object-fit: cover; height:78vh; width: 50%;"/>
+    <form method="post" class="w-50 px-5">
+        <div class="px-5">
+            <div class="row pb-2">
+                <h2 class="text-primary pl-3">Register</h2>
+                <hr />
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Username"></label>
+                <input asp-for="User.Username" class="form-control" />
+                <span asp-validation-for="User.Username" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Password"></label>
+                <input asp-for="User.Password" class="form-control" />
+                <span asp-validation-for="User.Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Fullname"></label>
+                <input asp-for="User.Fullname" class="form-control" />
+                <span asp-validation-for="User.Fullname" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Telephone"></label>
+                <input asp-for="User.Telephone" class="form-control" />
+                <span asp-validation-for="User.Telephone" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Email"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="User.Address"></label>
+                <input asp-for="User.Address" class="form-control" />
+                <span asp-validation-for="User.Address" class="text-danger"></span>
+            </div>
+            <div style="display: none">
+                <input asp-for="User.IsAdmin" class="form-control" value=@Model.IsAdmin />
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill w-100" style="width:150px;">Register</button>
+            <div class="mt-2 alert-danger">
+                @Model.Message
+            </div>
+        </div>
+
+    </form>
+</div>
+<style>
+    a {
+        color: var(--secondary);
+    }
+</style>
