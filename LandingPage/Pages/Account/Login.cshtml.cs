@@ -52,7 +52,7 @@ namespace PlantShop.Pages.Login
                 }
             }
 
-            Message = "Invalid attempt";
+            Message = "Invalid username or password";
             return Page();
         }
     }

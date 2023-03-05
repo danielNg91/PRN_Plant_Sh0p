@@ -9,10 +9,10 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Product List</h2>
+            <h2 class="h2 inverse">Product List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-page="create" class="btn btn-primary">
+            <a asp-page="create" class="btn btn-primary rounded-pill">
                 <i class="bi bi-plus-square"></i> &nbsp;Add New Product
             </a>
         </div>
@@ -27,7 +27,7 @@
                     Product Name
                 </th>
                 <th>
-                    Description
+                    Image
                 </th>
                 <th>
                     Category
@@ -49,8 +49,15 @@
             {
                 <tr>
                     <td width="20%">@obj.Name</td>
-                    <td width="20%">@obj.Description</td>
-                    <td width="10%">@obj.CategoryId</td>
+                    <td width="20%"><img src="@obj.Description"/></td>
+                    @foreach (var cate in Model.ProductCategories)
+                    {
+                        @if (@cate.Id == @obj.CategoryId)
+                        {
+                            <td width="10%">@cate.Name</td>
+                        }
+                        
+                    }
                     <td width="10%">@obj.Quantity</td>
                     <td width="10%">@obj.Price</td>
                     <td width="10%">@obj.DiscountId</td>
@@ -71,3 +78,8 @@
     </table>
 
 </div>
+<style>
+    img {
+         height: 20vh;
+    }
+</style>

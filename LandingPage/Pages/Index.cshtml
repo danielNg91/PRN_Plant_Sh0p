@@ -4,7 +4,130 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center h-100 d-flex justify-content-center align-items-center" style="height:90vh!important">
+    <img class="plant-pot-img" src="/img/flower-crop.png">
+    <div style="line-height: 12vh;">
+        <div class="happiness">Happiness</div>
+        <div class="font-weight-light inverse my-2" style="line-height: 1;">grows in your</div>
+        <div class="font-weight-bolder flower font-italic">flowers</div>
+        <hr/>
+        <a href="#product" class="btn rounded-pill btn-outline-secondary btn-lg">SHOP NOW</a>
+    </div>
 </div>
+
+<div class="text-center position-relative overflow-hidden">
+    <img src="/img/garden-bg.jpg" class="w-100 home-bg"/>
+    <div class="position-absolute w-100"
+        style="top:0; left:0;background: rgba(0, 0, 0, 0.7);color:#fafafa; height:100%;padding-top:35vh">
+        <h1>We are Dac, Tan, Thanh, Ha, and we sell <span class="font-italic">plants</span>.</h1>
+        <div class="pt-3">We programmers care for you and our nature.</div>
+        <div class="pb-5">That's why we created this page to sell you plants and spread the green.</div>
+            <a href="#product" class="btn btn-outline-only rounded-pill btn-lg mx-3">Browse Plants</a>
+            <a href="#cart" class="btn btn-outline-only rounded-pill btn-lg mx-3">Go to Cart</a>
+            <a href="#about" class="btn btn-outline-only rounded-pill btn-lg mx-3">About Us</a>
+    </div>
+</div>
+
+<div class="d-flex py-4" id="product">
+    
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+    <h1 class="px-3 pt-2">Our Products</h1>
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+    <img class="logo" src="/img/plant.png" />
+</div>
+
+@foreach (var obj in Model.Products)
+{
+    <div class="position-relative w-100 d-flex" style="border: 10vh solid var(--secondary)">
+        <div class="vh-100 w-50 d-flex flex-column justify-content-center align-items-center" style="background-color: #161618; color: var(--secondary)">
+            <div class="display-2 font-weight-lighter">@obj.Name</div>
+            @foreach (var cate in Model.ProductCategories)
+            {
+                @if (@cate.Id == @obj.CategoryId)
+                {
+                    <div class="h2 font-italic" style="color:var(--primary)">@cate.Name</div> 
+                }
+            }
+
+
+            <div class="font-weight-light" style="color:var(--primary)">@Convert.ToInt32(@obj.Price) VND</div>
+
+            @foreach (var disc in Model.ProductDiscounts)
+            {
+                @if (@obj.DiscountId == @disc.Id && @disc.Active &&@disc.DiscountPercent > 0)
+                {
+                    <div class="lead" style="color:var(--primary)">Now only @Convert.ToInt32((1 - @disc.DiscountPercent) * @obj.Price) VND</div>
+                    <div class="inverse px-1" style="font-size: 3vh">Discount @disc.Name</div>
+                }
+            }
+                
+        </div>
+        <img class=" vh-100 w-50" src="@obj.Description" style="object-fit: cover;" />
+    </div>
+}
+
+<div class="py-5 text-center" style="background-color: #161618; color: var(--primary)" id="about">
+    <h1>Meet our team</h1>
+    <div class="font-italic pt-3">
+        Inspired by the subject PRN221 and its deadline, as well as nature, we created this online plant shop.
+    </div>
+    <div class="font-weight-bold mt-5">
+        Contact
+    </div>
+    <div>
+        Nguyen Tam Dac - dacntse150063@fpt.edu.vn
+    </div>
+    <div>
+        Le Canh Hoang Thanh - thanhlchse162020@fpt.edu.vn
+    </div>
+    <div>
+        Vo Minh Tan - tanvmse151408@fpt.edu.vn
+    </div>
+    <div>
+        Do Ngan Ha - hadnse161779@fpt.edu.vn
+    </div>
+    <div class="d-flex pt-5">
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/dac.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/thanh.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/tan.jpg" />
+        <img class="rounded-circle border-secondary" style="height:30vh" src="/img/ha.jpg" />
+    </div>
+</div>
+
+    
+<style>
+    .plant-pot-img {
+        height: 79vh;
+    }
+    .happiness {
+        font-size: 10vh;
+    }
+    .flower {
+        font-size: 15vh;
+        color: var(--secondary);
+    }
+    .home-bg {
+        opacity: 0.8;
+        height: 100vh;
+    }
+    .btn-outline-only {
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        background: transparent;
+    }
+    .btn-outline-only:hover {
+        background:rgba(224, 240, 218, 0.46);
+    }
+    .logo {
+        height: 5vw;
+    }
+    .border-secondary {
+        border: 5px dashed var(--secondary);
+    }
+
+</style>
