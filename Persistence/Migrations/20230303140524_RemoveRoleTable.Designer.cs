@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230303140524_RemoveRoleTable")]
+    partial class RemoveRoleTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,7 +91,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Persistence.Models.OrderItem", b =>
@@ -125,7 +127,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Persistence.Models.Product", b =>
@@ -170,7 +172,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("DiscountId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Persistence.Models.ProductCategory", b =>
@@ -200,7 +202,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("DeletedAt");
 
-                    b.ToTable("Category");
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("Persistence.Models.ProductDiscount", b =>
@@ -235,7 +237,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("DeletedAt");
 
-                    b.ToTable("Discount");
+                    b.ToTable("ProductDiscounts");
                 });
 
             modelBuilder.Entity("Persistence.Models.User", b =>
@@ -279,7 +281,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("DeletedAt");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Persistence.Models.UserCart", b =>
@@ -310,7 +312,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("UserCarts");
                 });
 
             modelBuilder.Entity("Persistence.Models.CartItem", b =>
