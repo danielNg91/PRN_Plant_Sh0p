@@ -1,7 +1,9 @@
 ﻿@page
+@using Persistence.Constants
 @model PlantShop.Pages.Products.IndexModel
 @{
     ViewData["Title"] = "Index";
+    var isAdmin = User.IsInRole(nameof(Roles.Admin));
 }
 
 
@@ -11,11 +13,14 @@
         <div class="col-6">
             <h2 class="h2 inverse">Product List</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-page="create" class="btn btn-primary rounded-pill">
-                <i class="bi bi-plus-square"></i> &nbsp;Add New Product
-            </a>
-        </div>
+        @if (isAdmin)
+        {
+            <div class="col-6 text-right">
+                <a asp-page="create" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-square"></i> &nbsp;Add New Product
+                </a>
+            </div>
+        }
     </div>
 
     <br /><br />
@@ -49,14 +54,14 @@
             {
                 <tr>
                     <td width="20%">@obj.Name</td>
-                    <td width="20%"><img src="@obj.Description"/></td>
+                    <td width="20%"><img src="@obj.Description" /></td>
                     @foreach (var cate in Model.ProductCategories)
                     {
                         @if (@cate.Id == @obj.CategoryId)
                         {
                             <td width="10%">@cate.Name</td>
                         }
-                        
+
                     }
                     <td width="10%">@obj.Quantity</td>
                     <td width="10%">@obj.Price</td>
@@ -80,6 +85,6 @@
 </div>
 <style>
     img {
-         height: 20vh;
+        height: 20vh;
     }
 </style>

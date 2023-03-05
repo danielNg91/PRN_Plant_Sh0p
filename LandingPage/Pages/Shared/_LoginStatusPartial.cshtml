@@ -1,8 +1,6 @@
 ﻿@using System.Security.Claims
 @using Persistence.Constants
-@{
-    var isAdmin =User.IsInRole(nameof(Roles.Admin));
-}
+
 @if (User.Identity.IsAuthenticated)
 {
     <form method="post" class="form-inline" asp-page="/Account/Logout">
