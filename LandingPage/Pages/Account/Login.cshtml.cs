@@ -36,6 +36,7 @@ namespace PlantShop.Pages.Login
                 {
                     var claims = new List<Claim>
                     {
+                        new Claim("id", user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Username),
                         new Claim(ClaimTypes.Role, user.IsAdmin ? nameof(Roles.Admin) : nameof(Roles.Customer))
                     };
