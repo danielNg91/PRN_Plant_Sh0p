@@ -55,14 +55,15 @@
                 <tr>
                     <td width="20%">@obj.Name</td>
                     <td width="20%"><img src="@obj.Description" /></td>
-                    @foreach (var cate in Model.ProductCategories)
-                    {
-                        @if (@cate.Id == @obj.CategoryId)
+                    <td width="10%">
+                        @foreach (var cate in Model.ProductCategories)
                         {
-                            @cate.Name
+                            @if (@cate.Id == @obj.CategoryId)
+                            {
+                                @cate.Name
+                            }
                         }
-
-                    }
+                    </td>
                     <td width="10%">@obj.Quantity</td>
                     <td width="10%">@obj.Price</td>
                     <td width="10%">
