@@ -42,7 +42,13 @@
             @foreach (var obj in Model.Orders)
             {
                 <tr>
-                    <td width="20%">@obj.UserId</td>
+                    @foreach (var user in Model.Users)
+                    {
+                        @if (@user.Id == @obj.UserId)
+                        {
+                            <td width="10%">@user.Fullname</td>
+                        }
+                    }
                     <td width="20%">@obj.Total</td>
                     <td width="20%">@obj.PaymentStatus</td>
                     <td width="20%">@obj.DeliveryStatus</td>
