@@ -30,9 +30,8 @@ namespace PlantShop.Pages.Login
 
             if (user != null)
             {
-                var passwordHasher = new PasswordHasher<string>();
-                //if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
-                if (Credential.Password == user.Password)
+                var passwordHasher = new PasswordHasher<User>();
+                if (passwordHasher.VerifyHashedPassword(user, user.Password, Credential.Password) == PasswordVerificationResult.Success)
                 {
                     var claims = new List<Claim>
                     {

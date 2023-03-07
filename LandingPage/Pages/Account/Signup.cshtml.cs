@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
@@ -40,6 +41,8 @@ namespace PlantShop.Pages.Signup
                 var user = await _userRepository.FirstOrDefaultAsync(u => u.Username == User.Username);
                 if (user == null)
                 {
+                    var passwordHasher = new PasswordHasher<User>();
+                    User.Password = passwordHasher.HashPassword(User, User.Password);
                     await _userRepository.CreateAsync(User);
                     TempData["success"] = "User created successfully";
 
