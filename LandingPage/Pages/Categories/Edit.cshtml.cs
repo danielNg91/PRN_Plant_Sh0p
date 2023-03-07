@@ -17,7 +17,7 @@ namespace PlantShop.Pages.Categories
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Category = await _categoryRepository.FindByIdAsync(id);
         }

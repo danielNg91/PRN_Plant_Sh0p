@@ -48,7 +48,7 @@
             <div class="display-2 font-weight-lighter">@obj.Name</div>
             @foreach (var cate in Model.ProductCategories)
             {
-                @if (@cate.Id == @obj.CategoryId)
+                @if (@cate.Id.ToString() == @obj.CategoryId.ToString())
                 {
                     <div class="h2 font-italic" style="color:var(--primary)">@cate.Name</div> 
                 }
@@ -59,7 +59,7 @@
 
             @foreach (var disc in Model.ProductDiscounts)
             {
-                @if (@obj.DiscountId == @disc.Id && @disc.Active &&@disc.DiscountPercent > 0)
+                @if (@obj.DiscountId.ToString() == @disc.Id.ToString() && @disc.Active &&@disc.DiscountPercent > 0)
                 {
                     <div class="lead" style="color:var(--primary)">Now only @Convert.ToInt32((1 - @disc.DiscountPercent) * @obj.Price) VND</div>
                     <div class="inverse px-1" style="font-size: 3vh">Discount @disc.Name</div>

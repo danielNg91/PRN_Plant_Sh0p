@@ -17,7 +17,7 @@ namespace PlantShop.Pages.Discounts
         {
             _discountRepository = discountRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Discount = await _discountRepository.FindByIdAsync(id);
         }

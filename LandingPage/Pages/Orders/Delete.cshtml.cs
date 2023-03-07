@@ -16,13 +16,13 @@ namespace PlantShop.Pages.Orders
         {
             _orderCategory = orderCategory;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Order = await _orderCategory.FindByIdAsync(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var order = await _orderCategory.FindByIdAsync(Order.Id);
+            var order = await _orderCategory.FindByIdAsync(Order.Id.ToString());
             if (order != null)
             {
                 await _orderCategory.SoftDeleteAsync(order);

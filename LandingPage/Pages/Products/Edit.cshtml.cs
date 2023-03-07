@@ -25,7 +25,7 @@ namespace PlantShop.Pages.Products
             _discountRepository = discountRepository;
         }
 
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Product = await _productRepository.FindByIdAsync(id);
             Categories = await _categoryRepository.ListAsync();

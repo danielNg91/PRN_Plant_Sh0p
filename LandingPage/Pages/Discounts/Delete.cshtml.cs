@@ -16,13 +16,13 @@ namespace PlantShop.Pages.Discounts
         {
 			_discountCategory = discountCategory;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
 			Discount = await _discountCategory.FindByIdAsync(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var discount = await _discountCategory.FindByIdAsync(Discount.Id);
+            var discount = await _discountCategory.FindByIdAsync(Discount.Id.ToString());
             if (discount != null)
             {
                 await _discountCategory.SoftDeleteAsync(discount);

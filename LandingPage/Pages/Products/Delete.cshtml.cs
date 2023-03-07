@@ -16,13 +16,13 @@ namespace PlantShop.Pages.Products
         {
             _productRepository = productRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Product = await _productRepository.FindByIdAsync(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var product = await _productRepository.FindByIdAsync(Product.Id);
+            var product = await _productRepository.FindByIdAsync(Product.Id.ToString());
             if (product != null)
             {
                 await _productRepository.SoftDeleteAsync(product);

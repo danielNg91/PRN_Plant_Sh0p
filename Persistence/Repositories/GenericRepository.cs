@@ -20,7 +20,7 @@ namespace Persistence.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public virtual async Task<T> FindByIdAsync(int id, params string[] navigationProperties)
+        public virtual async Task<T> FindByIdAsync(string id, params string[] navigationProperties)
         {
             var query = ApplyNavigation(navigationProperties);
             T entity = await query.FirstOrDefaultAsync(e => e.Id.Equals(id));

@@ -16,13 +16,13 @@ namespace PlantShop.Pages.Categories
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Category = await _categoryRepository.FindByIdAsync(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var category = await _categoryRepository.FindByIdAsync(Category.Id);
+            var category = await _categoryRepository.FindByIdAsync(Category.Id.ToString());
             if (category != null)
             {
                 await _categoryRepository.SoftDeleteAsync(category);

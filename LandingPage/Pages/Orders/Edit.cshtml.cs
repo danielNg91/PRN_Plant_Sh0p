@@ -17,7 +17,7 @@ namespace PlantShop.Pages.Orders
         {
             _orderRepository = orderRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Order = await _orderRepository.FindByIdAsync(id);
         }
