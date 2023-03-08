@@ -15,13 +15,13 @@ namespace PlantShop.Pages.Cart
 		{
 			_cartItemRepository = cartItemRepository;
 		}
-		public async Task OnGetAsync(int id)
+		public async Task OnGetAsync(string id)
 		{
 			CartItem = await _cartItemRepository.FindByIdAsync(id);
 		}
 		public async Task<IActionResult> OnPost()
 		{
-			var item = await _cartItemRepository.FindByIdAsync(CartItem.Id);
+			var item = await _cartItemRepository.FindByIdAsync(CartItem.Id.ToString());
 			if (item != null)
 			{
 				await _cartItemRepository.SoftDeleteAsync(item);

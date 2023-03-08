@@ -21,10 +21,10 @@ namespace PlantShop.Pages.Orders
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
         }
-        public async Task OnGetAsync(int id)
+        public async Task OnGetAsync(string id)
         {
             Order = await _orderRepository.FindByIdAsync(id);
-            OrderItems = (List<OrderItem>)await _orderItemRepository.WhereAsync(x => x.OrderId == id);
+            OrderItems = (List<OrderItem>)await _orderItemRepository.WhereAsync(x => x.OrderId.ToString() == id);
         }
 
         public async Task<IActionResult> OnPostAsync()
