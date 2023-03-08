@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.OAuth.Claims;
-using Persistence.Services;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using PlantShop.Pages.Cart;
+using Persistence.Repositories.Interfaces;
 
 namespace PlantShop.Pages.Products
 {
@@ -18,62 +18,37 @@ namespace PlantShop.Pages.Products
     {
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _productCategoryRepository;
-        private readonly GenericRepository<ProductDiscount> _productCategoryDiscount;
-        private readonly GenericRepository<CartItem> _cartItemRepository;
+        private readonly GenericRepository<ProductDiscount> _productDiscountCategory;
+        private readonly GenericRepository<UserCart> _cartRepository;
+        private readonly ICartRepository _cart;
         public UserCart Cart { get; set; }
         public List<CartItem> CartItems { get; set; }
         public List<Product> Products { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductDiscount> ProductDiscounts { get; set; }
 
-        public IndexModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> productCategoryRepository, GenericRepository<ProductDiscount> productCategoryDiscount, GenericRepository<CartItem> cartItemRepository)
+        public IndexModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> productCategoryRepository, GenericRepository<ProductDiscount> productDiscountCategory, GenericRepository<UserCart> cartRepository, ICartRepository cart)
         {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
-            _productCategoryDiscount = productCategoryDiscount;
-            _cartItemRepository = cartItemRepository;
+            _productDiscountCategory = productDiscountCategory;
+            _cartRepository = cartRepository;
+            _cart = cart;
         }
+
         public async Task OnGetAsync()
         {
             Products = await _productRepository.ListAsync();
             ProductCategories = await _productCategoryRepository.ListAsync();
-            ProductDiscounts = await _productCategoryDiscount.ListAsync();
+            ProductDiscounts = await _productDiscountCategory.ListAsync();
         }
-        public async Task<IActionResult> AddToCart(string id, [FromServices] CartViewModel cartViewModel)
+
+        public async Task<IActionResult> OnPostAddToCartAsync(int id)
         {
-            var item = await _cartItemRepository.FindByIdAsync(id);
-            cartViewModel.AddItem(item);
-            return await Task.FromResult<IActionResult>(RedirectToPage("Cart/Index"));
+            string currentUser = User.FindFirst(t => t.Type == "id").Value;
+
+            await _cart.AddItem(currentUser, id);
+            return Page();
         }
     }
-
-    public class CartViewModel
-    {
-        private readonly UserCartService _cartService;
-
-        public CartViewModel(UserCartService cartService)
-        {
-            _cartService = cartService;
-        }
-
-        public UserCart Cart { get; } = new UserCart();
-
-        public void AddItem(CartItem item)
-        {
-            _cartService.AddItem(Cart, item);
-        }
-
-        public void RemoveItem(CartItem item)
-        {
-            _cartService.RemoveItem(Cart, item);
-        }
-
-        public decimal GetTotalCost()
-        {
-            return _cartService.GetTotalCost(Cart);
-        }
-    }
-
-
-
 }

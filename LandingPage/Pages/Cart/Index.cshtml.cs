@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
-using Persistence.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,9 +24,9 @@ namespace PlantShop.Pages.Cart
         public async Task OnGetAsync()
         {
             var claim = User.FindFirst(t => t.Type == "id");
-            Cart = await _cartRepository.FirstOrDefaultAsync(c => c.UserId.ToString() == claim.ToString());
+            Cart = await _cartRepository.FirstOrDefaultAsync(c => c.UserId.ToString() == claim.Value);
             Cart ??= new UserCart();
-            CartItems = (List<CartItem>)await _cartItemRepository.WhereAsync(c => c.CartId.ToString() == Cart.Id.ToString());
+            CartItems = (List<CartItem>) await _cartItemRepository.WhereAsync(c => c.CartId.ToString() == Cart.Id.ToString());
         }
     }
 }
