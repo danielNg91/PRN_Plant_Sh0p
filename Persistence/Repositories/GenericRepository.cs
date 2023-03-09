@@ -23,7 +23,7 @@ namespace Persistence.Repositories
         public virtual async Task<T> FindByIdAsync(string id, params string[] navigationProperties)
         {
             var query = ApplyNavigation(navigationProperties);
-            T entity = await query.FirstOrDefaultAsync(e => e.Id.Equals(id));
+            T entity = await query.FirstOrDefaultAsync(e => e.Id.ToString().Equals(id));
             return entity;
         }
        
