@@ -20,6 +20,7 @@ namespace PlantShop.Pages
         public List<Product> Products { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductDiscount> ProductDiscounts { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
 
         public IndexModel(ILogger<IndexModel> logger, GenericRepository<Product> productRepository, GenericRepository<ProductCategory> productCategoryRepository, GenericRepository<ProductDiscount> productDiscountRepository)
@@ -28,7 +29,6 @@ namespace PlantShop.Pages
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
             _productDiscountRepository = productDiscountRepository;
-
         }
 
         public async Task OnGetAsync()
