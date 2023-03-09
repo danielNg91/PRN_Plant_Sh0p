@@ -14,7 +14,7 @@ namespace Persistence.Models
             OrderItems = new HashSet<OrderItem>();
         }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public decimal Total { get; set; }
         public bool PaymentStatus { get; set; }
         public string DeliveryStatus { get; set; }

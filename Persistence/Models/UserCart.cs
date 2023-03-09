@@ -14,7 +14,7 @@ namespace Persistence.Models
             CartItems = new HashSet<CartItem>();
         }
 
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public decimal Total { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }

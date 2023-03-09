@@ -9,8 +9,8 @@ namespace Persistence.Models
     [Table("CartItems")]
     public partial class CartItem : BaseEntity
     {
-        public int CartId { get; set; }
-        public int ProductId { get; set; }
+        public Guid CartId { get; set; }
+        public Guid ProductId { get; set; }
         public int Quantity { get; set; }
 
         public virtual UserCart Cart { get; set; }
