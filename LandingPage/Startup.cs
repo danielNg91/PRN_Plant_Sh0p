@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence.Context;
 using Persistence.Repositories;
-using Persistence.Repositories.Interfaces;
 
 namespace PlantShop
 {
@@ -34,7 +33,7 @@ namespace PlantShop
 
             // Di
             services.AddScoped(typeof(GenericRepository<>));
-            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<CartRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

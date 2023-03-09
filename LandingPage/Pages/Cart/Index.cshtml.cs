@@ -10,23 +10,22 @@ namespace PlantShop.Pages.Cart
 {
     public class IndexModel : PageModel
     {
-        private readonly GenericRepository<UserCart> _cartRepository;
+        private readonly CartRepository _cartRepository;
         private readonly GenericRepository<CartItem> _cartItemRepository;
         public UserCart Cart { get; set; }
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public List<Product> Products { get; set; }
-        public IndexModel(GenericRepository<UserCart> cartRepository, GenericRepository<CartItem> cartItemRepository)
+        public IndexModel(CartRepository cartRepository, GenericRepository<CartItem> cartItemRepository)
         {
             _cartRepository = cartRepository;
             _cartItemRepository = cartItemRepository;
         }
         public async Task OnGetAsync()
         {
-            var claim = User.FindFirst(t => t.Type == "id");
-            Cart = await _cartRepository.FirstOrDefaultAsync(c => c.UserId.ToString() == claim.Value);
-            Cart ??= new UserCart();
-            CartItems = (List<CartItem>) await _cartItemRepository.WhereAsync(c => c.CartId.ToString() == Cart.Id.ToString());
+            var currentUser = User.FindFirst(t => t.Type == "id").Value;
+            Cart = await _cartRepository.GetCartByUser(currentUser);
+            CartItems = (List<CartItem>) await _cartRepository.GetItems(Cart);
         }
     }
 }
