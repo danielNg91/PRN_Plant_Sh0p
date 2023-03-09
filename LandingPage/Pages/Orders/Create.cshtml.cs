@@ -11,22 +11,25 @@ namespace PlantShop.Pages.Orders
     {
         private readonly GenericRepository<Order> _orderRepository;
         private readonly GenericRepository<OrderItem> _orderItemRepository;
+        private readonly GenericRepository<Product> _productRepository;
         [BindProperty]
         public Order Order { get; set; }
-        public List<OrderItem> Items { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+        public List<Product> Products { get; set; }
 
-        public CreateModel(GenericRepository<Order> orderRepository, GenericRepository<OrderItem> orderItemRepository)
+        public CreateModel(GenericRepository<Order> orderRepository, GenericRepository<OrderItem> orderItemRepository, GenericRepository<Product> productRepository)
         {
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
+            _productRepository = productRepository;
         }
 
-        //public async Task<IActionResult> OnGetAsync()
-        //{
-        //    Items = await _orderItemRepository.ListAsync();
-        //}
+        public async Task OnGetAsync()
+        {
+            Products = await _productRepository.ListAsync();
+        }
 
-        public async  Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
             {

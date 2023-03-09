@@ -18,5 +18,6 @@ namespace Persistence.Models
         public decimal Total { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
+
     }
 }
