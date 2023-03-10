@@ -15,8 +15,8 @@ namespace PlantShop.Pages.Products
         private readonly GenericRepository<ProductDiscount> _discountRepository;
         [BindProperty]
         public Product Product { get; set; }
-        public IEnumerable<ProductCategory> Categories { get; set; }
-        public IEnumerable<ProductDiscount> Discounts { get; set; }
+        public List<ProductCategory> Categories { get; set; }
+        public List<ProductDiscount> Discounts { get; set; }
 
         public EditModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> categoryRepository, GenericRepository<ProductDiscount> discountRepository)
         {
@@ -29,7 +29,7 @@ namespace PlantShop.Pages.Products
         {
             Product = await _productRepository.FindByIdAsync(id);
             Categories = await _categoryRepository.ListAsync();
-            Discounts = await _discountRepository.WhereAsync(x=>x.Active == true);
+            Discounts = (List<ProductDiscount>) await _discountRepository.WhereAsync(x=>x.Active == true);
         }
 
         public async Task<IActionResult> OnPostAsync()

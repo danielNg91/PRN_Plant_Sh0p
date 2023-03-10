@@ -24,7 +24,7 @@
         <thead>
             <tr>
                 <th>
-                    User ID
+                    User
                 </th>
                 <th>
                     Total
@@ -45,7 +45,7 @@
                     <td width="10%">
                     @foreach (var user in Model.Users)
                     {
-                        @if (@user.Id.ToString() == @obj.UserId.ToString())
+                        @if (@user.Id == @obj.UserId)
                         {
                             @user.Fullname
                         }

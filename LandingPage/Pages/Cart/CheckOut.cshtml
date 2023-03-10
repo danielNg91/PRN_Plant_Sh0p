@@ -1,0 +1,85 @@
+﻿@page
+@model PlantShop.Pages.Cart.CheckOut
+@{
+    ViewData["title"] = "Create";
+}
+
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Create Product</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Order.Id"></label>
+            <input asp-for="Order.Id" class="form-control" />
+            <span asp-validation-for="Order.Id" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.Total"></label>
+            <input asp-for="Order.Total" class="form-control" />
+            <span asp-validation-for="Order.Total" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.PaymentStatus"></label>
+            <input asp-for="Order.PaymentStatus" class="form-control" />
+            <span asp-validation-for="Order.PaymentStatus" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Order.DeliveryStatus"></label>
+            <input asp-for="Order.DeliveryStatus" class="form-control" />
+            <span asp-validation-for="Order.DeliveryStatus" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Product Name
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Discount
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.CartItems)
+                    {
+                        <tr>
+                            <td width="20%">@obj.Product.Name</td>
+                            <td width="20%"><img src="@obj.Product.Description" /></td>
+                            <td width="10%">@obj.Product.Category</td>
+                            <td width="10%">@obj.Quantity</td>
+                            <td width="10%">@obj.Product.Price</td>
+                            <td width="10%">@obj.Product.Discount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

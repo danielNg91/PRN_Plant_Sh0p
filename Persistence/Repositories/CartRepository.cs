@@ -38,7 +38,12 @@ namespace Persistence.Repositories
 
         }
 
-        public async Task AddItem(string userId, Guid productId, int quantity = 1)
+        public async Task GetCartItems (string id)
+        {
+
+        }
+
+        public async Task AddItem(string userId, Product product, int quantity = 1)
         {
             var cart = await GetCartByUser(userId);
 
@@ -46,7 +51,7 @@ namespace Persistence.Repositories
                     new CartItem
                     {
                         CartId = cart.Id,
-                        ProductId = productId,
+                        ProductId = product.Id,
                         Quantity = quantity
                     }
                 );

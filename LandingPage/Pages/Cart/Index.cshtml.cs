@@ -14,7 +14,7 @@ namespace PlantShop.Pages.Cart
         private readonly GenericRepository<CartItem> _cartItemRepository;
         public UserCart Cart { get; set; }
         public string Message { get; set; }
-        public IEnumerable<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public IndexModel(CartRepository cartRepository, GenericRepository<CartItem> cartItemRepository)
         {
