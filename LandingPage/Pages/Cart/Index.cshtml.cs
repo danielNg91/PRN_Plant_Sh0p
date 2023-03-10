@@ -25,7 +25,7 @@ namespace PlantShop.Pages.Cart
         {
             var currentUser = User.FindFirst(t => t.Type == "id").Value;
             Cart = await _cartRepository.GetCartByUser(currentUser);
-            CartItems = (List<CartItem>) await _cartRepository.GetItems(Cart);
+
         }
     }
 }
