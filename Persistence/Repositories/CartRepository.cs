@@ -12,16 +12,13 @@ namespace Persistence.Repositories
 {
     public class CartRepository : GenericRepository<UserCart>
     {
-        protected readonly ApplicationDbContext _dbContext;
-
         public CartRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
         public async Task<UserCart> GetCartByUser(string id)
         {
-            var cart = _dbContext.UserCarts
+            var cart = _context.UserCarts
                         .Include(c => c.CartItems)
                             .ThenInclude(i => i.Product)
                         .FirstOrDefault(c => c.UserId.ToString() == id);
@@ -35,50 +32,42 @@ namespace Persistence.Repositories
                 UserId = Guid.Parse(id),
             };
 
-            _dbContext.UserCarts.Add(newCart);
-            await _dbContext.SaveChangesAsync();
+            _context.UserCarts.Add(newCart);
+            await _context.SaveChangesAsync();
             return newCart;
 
         }
 
-        public async Task<IEnumerable<CartItem>> GetItems(UserCart cart)
+        public async Task AddItem(string userId, Guid productId, int quantity = 1)
         {
-            var item = _dbContext.CartItems.Where(item => item.CartId.ToString() == cart.Id.ToString());
-            await _dbContext.SaveChangesAsync();
-            return item;
-
-        }
-
-        public async Task AddItem(string id, string productId, int quantity = 1)
-        {
-            var cart = await GetCartByUser(id);
+            var cart = await GetCartByUser(userId);
 
             cart.CartItems.Add(
                     new CartItem
                     {
                         CartId = cart.Id,
-                        ProductId = Guid.Parse(productId),
+                        ProductId = productId,
                         Quantity = quantity
                     }
                 );
 
-            _dbContext.Entry(cart).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            _context.Entry(cart).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveItem(Guid cartId, Guid cartItemId)
+        public async Task RemoveItem(string cartId, string cartItemId)
         {
-            var cart = _dbContext.UserCarts
+            var cart = _context.UserCarts
                        .Include(c => c.CartItems)
-                       .FirstOrDefault(c => c.Id == cartId);
+                       .FirstOrDefault(c => c.Id.ToString() == cartId);
 
             if (cart != null)
             {
-                var removedItem = cart.CartItems.FirstOrDefault(x => x.Id == cartItemId);
+                var removedItem = cart.CartItems.FirstOrDefault(x => x.Id.ToString() == cartItemId);
                 cart.CartItems.Remove(removedItem);
 
-                _dbContext.Entry(cart).State = EntityState.Modified;
-                await _dbContext.SaveChangesAsync();
+                _context.Entry(cart).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
 
         }
@@ -89,8 +78,8 @@ namespace Persistence.Repositories
 
             cart.CartItems.Clear();
 
-            _dbContext.Entry(cart).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            _context.Entry(cart).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

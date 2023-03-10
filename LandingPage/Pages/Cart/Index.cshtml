@@ -19,34 +19,36 @@
 
     <br /><br />
     <h4>Shopping Cart</h4>
-    <p>You have @Model.CartItems.Count() items</p>
-    <table class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    Product Name
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Quantity
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Discount
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model.CartItems)
-            {
+    @if (Model.CartItems.Count() > 0)
+    {
+        <p>You have @Model.CartItems.Count() items</p>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Discount
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.CartItems)
+                {
                     <tr>
                         <td width="20%">@obj.Product.Name</td>
                         <td width="20%"><img src="@obj.Product.Description" /></td>
@@ -65,11 +67,14 @@
                             </div>
                         </td>
                     </tr>
-            }
-
-        </tbody>
-    </table>
-
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Your cart is empty</p>
+    }
 </div>
 <style>
     img {

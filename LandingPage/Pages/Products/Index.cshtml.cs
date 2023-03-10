@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,7 +18,10 @@ namespace PlantShop.Pages.Products
         public List<CartItem> CartItems { get; set; }
         public List<Product> Products { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
+
         public List<ProductDiscount> ProductDiscounts { get; set; }
+        [BindProperty]
+        public int Quantity { get; set; }
 
         public IndexModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> productCategoryRepository, GenericRepository<ProductDiscount> productDiscountCategory, CartRepository cart)
         {
@@ -34,10 +38,10 @@ namespace PlantShop.Pages.Products
             ProductDiscounts = await _productDiscountCategory.ListAsync();
         }
 
-        public async Task<IActionResult> OnPostAddToCartAsync(string id)
+        public async Task<IActionResult> OnPostAddToCartAsync(Guid id)
         {
-            string currentUser = User.FindFirst(t => t.Type == "id").Value;
-            await _cart.AddItem(currentUser, id);
+            var currentUser = User.FindFirst(t => t.Type == "id").Value;
+            await _cart.AddItem(currentUser, id, Quantity);
             return Page();
         }
     }

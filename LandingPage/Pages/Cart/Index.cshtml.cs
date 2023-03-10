@@ -13,9 +13,9 @@ namespace PlantShop.Pages.Cart
         private readonly CartRepository _cartRepository;
         private readonly GenericRepository<CartItem> _cartItemRepository;
         public UserCart Cart { get; set; }
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public string Message { get; set; }
+        public IEnumerable<CartItem> CartItems { get; set; } = new List<CartItem>();
 
-        public List<Product> Products { get; set; }
         public IndexModel(CartRepository cartRepository, GenericRepository<CartItem> cartItemRepository)
         {
             _cartRepository = cartRepository;
@@ -23,9 +23,14 @@ namespace PlantShop.Pages.Cart
         }
         public async Task OnGetAsync()
         {
-            var currentUser = User.FindFirst(t => t.Type == "id").Value;
+            var currentUser = User.FindFirst(x => x.Type == "id").Value;
             Cart = await _cartRepository.GetCartByUser(currentUser);
-
         }
+
+        //public async Task<IActionResult> OnPostRemoveToCartAsync(int cartId, int cartItemId)
+        //{
+        //    await _cartRepository.RemoveItem(cartId, cartItemId);
+        //    return RedirectToPage();
+        //}
     }
 }
