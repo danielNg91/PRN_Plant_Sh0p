@@ -15,10 +15,12 @@ namespace Persistence.Models
         }
 
         public Guid UserId { get; set; }
+        public Guid CartId { get; set; }
         public decimal Total { get; set; }
         public bool PaymentStatus { get; set; }
         public string DeliveryStatus { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual UserCart UserCart { get; set; }
     }
 }

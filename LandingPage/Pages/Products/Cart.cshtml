@@ -1,6 +1,6 @@
 ﻿@page
 @using Persistence.Constants
-@model PlantShop.Pages.Cart.IndexModel
+@model PlantShop.Pages.Products.CartModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -75,6 +75,10 @@
     {
         <p>Your cart is empty</p>
     }
+    <div>
+        <a asp-page="Index" class="btn btn-primary" style="width:150px;"><i class="bi bi-basket2"></i> Continue Shopping</a>
+        <a asp-page="CheckOut" class="btn btn-secondary" style="width:150px;"><i class="bi bi-clipboard-check"></i> Check Out</a>
+    </div>
 </div>
 <style>
     img {

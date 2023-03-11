@@ -33,10 +33,10 @@ namespace PlantShop.Pages.Products
             ProductDiscounts = await _productDiscountCategory.ListAsync();
         }
 
-        public async Task<IActionResult> OnPostAddToCartAsync(string id)
+        public async Task<IActionResult> OnPostAddToCartAsync(string Id)
         {
             var currentUser = User.FindFirst(t => t.Type == "id").Value;
-            var item = await _productRepository.FindByIdAsync(id.ToString());
+            var item = await _productRepository.FindByIdAsync(Id.ToString());
             await _cart.AddItem(currentUser, item);
             return RedirectToAction("Index");
         }

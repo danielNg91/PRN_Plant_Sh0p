@@ -1,14 +1,14 @@
 ﻿@page
-@model PlantShop.Pages.Cart.CheckOut
+@model PlantShop.Pages.Products.CheckOut
 @{
-    ViewData["title"] = "Create";
+    ViewData["title"] = "Check Out";
 }
 
 
 <form method="post">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary pl-3">Create Product</h2>
+            <h2 class="text-primary pl-3">Check Out</h2>
             <hr />
         </div>
         <div asp-validation-summary="All"></div>
@@ -71,8 +71,8 @@
                 </tbody>
             </table>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px;">Create</button>
-        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to List</a>
+        <button type="submit" class="btn btn-primary" style="width:150px;">Check Out</button>
+        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to Cart</a>
 
     </div>
 
