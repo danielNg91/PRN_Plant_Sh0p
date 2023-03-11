@@ -32,7 +32,7 @@ namespace Persistence.Repositories
             var query = _dbSet.AsQueryable();
             foreach (string navigationProperty in navigationProperties)
                 query = query.Include(navigationProperty);
-            return query;
+            return query.AsNoTracking();
         }
         public virtual async Task CreateAsync(T entity)
         {

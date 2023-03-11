@@ -14,16 +14,20 @@ namespace PlantShop.Pages.Products
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _productCategoryRepository;
         private readonly GenericRepository<ProductDiscount> _productDiscountCategory;
-        private readonly CartRepository _cart;
+        private readonly CartRepository _cartRepository;
         public List<Product> ProductList { get; set; }
         public List<ProductCategory> ProductCategories { get; set; }
         public List<ProductDiscount> ProductDiscounts { get; set; }
-        public IndexModel(GenericRepository<Product> productRepository, GenericRepository<ProductCategory> productCategoryRepository, GenericRepository<ProductDiscount> productDiscountCategory, CartRepository cart)
-        {
+        public IndexModel(
+            GenericRepository<Product> productRepository,
+            GenericRepository<ProductCategory> productCategoryRepository,
+            GenericRepository<ProductDiscount> productDiscountCategory, 
+            CartRepository cartRepository
+        ) {
             _productRepository = productRepository;
             _productCategoryRepository = productCategoryRepository;
             _productDiscountCategory = productDiscountCategory;
-            _cart = cart;
+            _cartRepository = cartRepository;
         }
 
         public async Task OnGetAsync()
@@ -37,7 +41,7 @@ namespace PlantShop.Pages.Products
         {
             var currentUser = User.FindFirst(t => t.Type == "id").Value;
             var item = await _productRepository.FindByIdAsync(Id.ToString());
-            await _cart.AddItem(currentUser, item);
+            await _cartRepository.AddItem(currentUser, item);
             return RedirectToAction("Index");
         }
     }

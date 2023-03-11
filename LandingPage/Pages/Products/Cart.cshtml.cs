@@ -11,26 +11,16 @@ namespace PlantShop.Pages.Products
     public class CartModel : PageModel
     {
         private readonly CartRepository _cartRepository;
-        private readonly GenericRepository<CartItem> _cartItemRepository;
-        private readonly GenericRepository<Order> _orderRepository;
         public UserCart Cart { get; set; }
         public string Message { get; set; }
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
-
-        public CartModel(CartRepository cartRepository, GenericRepository<CartItem> cartItemRepository, GenericRepository<Order> orderRepository)
+        public CartModel(CartRepository cartRepository)
         {
             _cartRepository = cartRepository;
-            _cartItemRepository = cartItemRepository;
-            _orderRepository = orderRepository;
         }
         public async Task OnGetAsync()
         {
             var currentUser = User.FindFirst(x => x.Type == "id").Value;
-            var order = await _orderRepository.FirstOrDefaultAsync(order => order.UserId.Equals(currentUser));
-            if (order == null)
-            {
-                Cart = await _cartRepository.FindByIdAsync(Cart.Id.ToString(), nameof(UserCart.CartItems));
-            }
+            Cart = await _cartRepository.GetCartByUser(currentUser);
         }
 
         //public async Task<IActionResult> OnPostRemoveToCartAsync(int cartId, int cartItemId)

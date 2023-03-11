@@ -2,40 +2,53 @@
 using Persistence.Context;
 using Persistence.Models;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
     public class CartRepository : GenericRepository<UserCart>
     {
-        public CartRepository(ApplicationDbContext dbContext) : base(dbContext)
-        {
+        private readonly GenericRepository<Order> _orderRepository;
+        private readonly GenericRepository<CartItem> _itemRepository;
+        public CartRepository(
+            ApplicationDbContext dbContext, 
+            GenericRepository<Order> orderRepository,
+            GenericRepository<CartItem> itemRepository
+        ) : base(dbContext) {
+            _orderRepository = orderRepository;
+            _itemRepository = itemRepository;
         }
 
         public async Task<UserCart> GetCartByUser(string id)
         {
-            var cart = _context.UserCarts
-                        .Include(c => c.CartItems)
-                            .ThenInclude(i => i.Product)
-                        .FirstOrDefault(c => c.UserId.ToString() == id);
-
-            if (cart != null)
-                return cart;
+            var order = await _orderRepository.FirstOrDefaultAsync(o => o.UserId.ToString() == id && !o.PaymentStatus);
+            if (order != null)
+            {
+                var currentCart = await GetCart(order.CartId.ToString());
+                return currentCart;
+            }
 
             // if it is first attempt create new
-            var newCart = new UserCart
+            var cart = new UserCart
             {
                 UserId = Guid.Parse(id),
             };
+            await CreateAsync(cart);
+            await _orderRepository.CreateAsync(new Order
+            {
+                CartId = cart.Id,
+                UserId = Guid.Parse(id),
+            });
+            return cart;
+        }
 
-            _context.UserCarts.Add(newCart);
-            await _context.SaveChangesAsync();
-            return newCart;
-
+        public async Task<UserCart> GetCart(string id)
+        {
+            var cart = await FindByIdAsync(id);
+            var items = await _itemRepository.WhereAsync(i => i.CartId.ToString() == cart.Id.ToString(), nameof(CartItem.Product));
+            cart.CartItems = items;
+            return cart;
         }
 
         public async Task GetCartItems (string id)
@@ -46,18 +59,14 @@ namespace Persistence.Repositories
         public async Task AddItem(string userId, Product product, int quantity = 1)
         {
             var cart = await GetCartByUser(userId);
-
-            cart.CartItems.Add(
-                    new CartItem
-                    {
-                        CartId = cart.Id,
-                        ProductId = product.Id,
-                        Quantity = quantity
-                    }
-                );
-
-            _context.Entry(cart).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            cart.CartItems.Add(new CartItem
+            {
+                CartId = cart.Id,
+                ProductId = product.Id,
+                Quantity = quantity,
+                CreatedAt = DateTime.Now,
+            });
+            await UpdateAsync(cart);
         }
 
         public async Task RemoveItem(string cartId, string cartItemId)

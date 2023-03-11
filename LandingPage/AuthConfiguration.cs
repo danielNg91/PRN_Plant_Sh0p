@@ -23,8 +23,8 @@ namespace PlantShop
                 options.Conventions.AuthorizeFolder("/Products").AllowAnonymousToPage("/Products/Index");
                 options.Conventions.AuthorizeFolder("/Categories");
                 options.Conventions.AuthorizeFolder("/Discounts");
-                options.Conventions.AuthorizeFolder("/Cart");
                 options.Conventions.AuthorizeFolder("/Orders");
+                options.Conventions.AuthorizeFolder("/Cart");
             });
         }
         public static void AddAppAuthentication(this IServiceCollection services)
