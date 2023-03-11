@@ -32,7 +32,7 @@ namespace Persistence.Repositories
             var query = _dbSet.AsQueryable();
             foreach (string navigationProperty in navigationProperties)
                 query = query.Include(navigationProperty);
-            return query.AsNoTracking();
+            return query;
         }
         public virtual async Task CreateAsync(T entity)
         {
@@ -55,7 +55,7 @@ namespace Persistence.Repositories
 
         public virtual async Task<List<T>> ListAsync()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            return await _dbSet.ToListAsync();
         }
 
         public virtual async Task<IList<T>> WhereAsync(Expression<Func<T, bool>> predicate, params string[] navigationProperties)
@@ -65,7 +65,7 @@ namespace Persistence.Repositories
             foreach (string navigationProperty in navigationProperties)
                 query = query.Include(navigationProperty);//got to reaffect it.
 
-            list = await query.Where(predicate).AsNoTracking().ToListAsync<T>();
+            list = await query.Where(predicate).ToListAsync<T>();
             return list;
         }
 
@@ -78,7 +78,7 @@ namespace Persistence.Repositories
 
         public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.AsQueryable().AsNoTracking().FirstOrDefaultAsync(predicate);
+            return _dbSet.AsQueryable().FirstOrDefaultAsync(predicate);
         }
     }
 }

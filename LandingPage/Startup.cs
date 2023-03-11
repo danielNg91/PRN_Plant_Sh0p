@@ -25,9 +25,7 @@ namespace PlantShop
                 options =>
                 {
                     var conn = Configuration.GetConnectionString("DefaultConnection");
-                    options
-                        .UseSqlServer(conn)
-                        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    options.UseSqlServer(conn);
                 }
             );
             services.AddAppAuthentication();
