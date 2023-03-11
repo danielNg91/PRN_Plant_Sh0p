@@ -55,13 +55,22 @@ namespace Persistence.Repositories
         public async Task AddItem(string userId, Product product, int quantity = 1)
         {
             var cart = await GetCartByUser(userId);
-            cart.CartItems.Add(new CartItem
+            var itemExist = cart.CartItems.FirstOrDefault(i => i.ProductId == product.Id);
+            if (itemExist != null && itemExist.Quantity > 0)
             {
-                CartId = cart.Id,
-                ProductId = product.Id,
-                Quantity = quantity,
-                CreatedAt = DateTime.Now,
-            });
+                itemExist.Quantity++;
+            }
+            else
+            {
+                cart.CartItems.Add(new CartItem
+                {
+                    CartId = cart.Id,
+                    ProductId = product.Id,
+                    Quantity = quantity,
+                    CreatedAt = DateTime.Now,
+                });
+            }
+
             await UpdateAsync(cart);
         }
 
@@ -75,7 +84,6 @@ namespace Persistence.Repositories
                 cart.CartItems.Remove(removedItem);
                 await UpdateAsync(cart);
             }
-
         }
 
         public async Task ClearCart(string id)
@@ -86,6 +94,32 @@ namespace Persistence.Repositories
 
             //_context.Entry(cart).State = EntityState.Modified;
             //await _context.SaveChangesAsync();
+        }
+
+        public async Task IncreaseAmount(string id, string itemId)
+        {
+            var cart = await GetCartByUser(id);
+            var itemExist = cart.CartItems.FirstOrDefault(i => i.Product.Id.ToString() == itemId);
+            if (itemExist != null && itemExist.Quantity > 0)
+            {
+                itemExist.Quantity++;
+            }
+            await UpdateAsync(cart);
+
+        }
+        public async Task DecreaseAmount(string id, string itemId)
+        {
+            var cart = await GetCartByUser(id);
+            var itemExist = cart.CartItems.FirstOrDefault(i => i.Product.Id.ToString() == itemId);
+            if (itemExist != null && itemExist.Quantity > 0)
+            {
+                itemExist.Quantity--;
+            }
+            if (itemExist != null && itemExist.Quantity < 0)
+            {
+                await RemoveItem(id, itemExist.Id.ToString());
+            }
+            await UpdateAsync(cart);
         }
     }
 }
