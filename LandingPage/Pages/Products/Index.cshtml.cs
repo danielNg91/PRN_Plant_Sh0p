@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Products
@@ -39,6 +37,10 @@ namespace PlantShop.Pages.Products
 
         public async Task<IActionResult> OnPostAddToCartAsync(string Id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("Account/Login");
+            }
             var currentUser = User.FindFirst(t => t.Type == "id").Value;
             var item = await _productRepository.FindByIdAsync(Id.ToString());
             await _cartRepository.AddItem(currentUser, item);
