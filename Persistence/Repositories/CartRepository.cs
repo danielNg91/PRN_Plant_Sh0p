@@ -12,10 +12,11 @@ namespace Persistence.Repositories
         private readonly GenericRepository<Order> _orderRepository;
         private readonly GenericRepository<CartItem> _itemRepository;
         public CartRepository(
-            ApplicationDbContext dbContext, 
+            ApplicationDbContext dbContext,
             GenericRepository<Order> orderRepository,
             GenericRepository<CartItem> itemRepository
-        ) : base(dbContext) {
+        ) : base(dbContext)
+        {
             _orderRepository = orderRepository;
             _itemRepository = itemRepository;
         }
@@ -51,11 +52,6 @@ namespace Persistence.Repositories
             return cart;
         }
 
-        public async Task GetCartItems (string id)
-        {
-
-        }
-
         public async Task AddItem(string userId, Product product, int quantity = 1)
         {
             var cart = await GetCartByUser(userId);
@@ -69,19 +65,15 @@ namespace Persistence.Repositories
             await UpdateAsync(cart);
         }
 
-        public async Task RemoveItem(string cartId, string cartItemId)
+        public async Task RemoveItem(string id, string cartItemId)
         {
-            var cart = _context.UserCarts
-                       .Include(c => c.CartItems)
-                       .FirstOrDefault(c => c.Id.ToString() == cartId);
+            var cart = await GetCartByUser(id);
 
             if (cart != null)
             {
                 var removedItem = cart.CartItems.FirstOrDefault(x => x.Id.ToString() == cartItemId);
                 cart.CartItems.Remove(removedItem);
-
-                _context.Entry(cart).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                await UpdateAsync(cart);
             }
 
         }
@@ -89,11 +81,11 @@ namespace Persistence.Repositories
         public async Task ClearCart(string id)
         {
             var cart = await GetCartByUser(id);
-
             cart.CartItems.Clear();
+            await UpdateAsync(cart);
 
-            _context.Entry(cart).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            //_context.Entry(cart).State = EntityState.Modified;
+            //await _context.SaveChangesAsync();
         }
     }
 }

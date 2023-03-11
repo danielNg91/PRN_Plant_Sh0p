@@ -10,9 +10,12 @@
         <div class="col-6">
             <h2 class="h2 inverse">Cart</h2>
         </div>
+        <form asp-page-handler="ClearItem" method="post" class="col-6 text-right">
+            <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-trash"> Clear</i></button>
+        </form>
         @*<div class="col-6 text-right">
-        <a asp-page="create" class="btn btn-primary rounded-pill">
-        <i class="bi bi-plus-square"></i> &nbsp;Add New Order
+        <a asp-page-handler="ClearItem" class="btn btn-primary rounded-pill">
+        <i class="bi bi-trash"> Clear
         </a>
         </div>*@
     </div>
@@ -61,9 +64,16 @@
                                 <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                @*<a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
                                     <i class="bi bi-trash-fill"></i>
-                                </a>
+                                </a>*@
+                                <form asp-page-handler="RemoveItem" method="post">
+                                    @*<input asp-for="@obj.Id" />*@
+                                    <input hidden type="text" name="Id" value="@obj.Id" />
+                                    <button type="submit" class="btn btn-danger mx-2">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
