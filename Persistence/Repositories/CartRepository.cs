@@ -134,7 +134,7 @@ namespace Persistence.Repositories
                 var discount = await _discountRepository.FindByIdAsync(item.Product.DiscountId.ToString());
                 if (discount != null && discount.Active)
                 {
-                    amount += item.Quantity * item.Product.Price * (1 - discount.DiscountPercent);
+                    amount += item.Quantity * item.Product.Price * (1 - discount.DiscountPercent/100);
                 }
                 else
                 {
