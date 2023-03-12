@@ -1,6 +1,6 @@
 namespace Persistence.Constants
 {
-    public enum Roles
+    public enum Role
     {
         Admin,
         Customer

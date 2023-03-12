@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Persistence.Constants;
 using Persistence.Models;
 using Persistence.Repositories;
 using System.Collections;
@@ -8,21 +9,30 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Orders
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BaseModel
     {
         private readonly GenericRepository<Order> _orderRepository;
-        private readonly GenericRepository<User> _userRepository;
+
         public List<Order> Orders { get; set; }
-        public List<User> Users { get; set; }
-        public IndexModel(GenericRepository<Order> orderRepository, GenericRepository<User> userRepository)
+
+        public IndexModel(GenericRepository<Order> orderRepository)
         {
             _orderRepository = orderRepository;
-            _userRepository = userRepository;
         }
         public async Task OnGetAsync()
         {
-            Orders = await _orderRepository.ListAsync();
-            Users = await _userRepository.ListAsync();
+            if (IsAdmin)
+            {
+                Orders = (List<Order>)await _orderRepository.WhereAsync(_ => true, nameof(Order.User), nameof(Order.UserCart));
+            }
+            else
+            {
+                Orders = (List<Order>)await _orderRepository.WhereAsync(
+                    o => o.UserId.ToString() == CurrentUserId, 
+                    nameof(Order.User),
+                    nameof(Order.UserCart)
+                    );
+            }
         }
     }
 }

@@ -11,14 +11,17 @@ namespace Persistence.Repositories
     {
         private readonly GenericRepository<Order> _orderRepository;
         private readonly GenericRepository<CartItem> _itemRepository;
+        private readonly GenericRepository<ProductDiscount> _discountRepository;
         public CartRepository(
             ApplicationDbContext dbContext,
             GenericRepository<Order> orderRepository,
-            GenericRepository<CartItem> itemRepository
+            GenericRepository<CartItem> itemRepository,
+            GenericRepository<ProductDiscount> discountRepository
         ) : base(dbContext)
         {
             _orderRepository = orderRepository;
             _itemRepository = itemRepository;
+            _discountRepository = discountRepository;
         }
 
         public async Task<UserCart> GetCartByUser(string id)
@@ -120,6 +123,31 @@ namespace Persistence.Repositories
                 await RemoveItem(userId, itemExist.Id.ToString());
             }
             await UpdateAsync(cart);
+        }
+
+        private async Task<decimal> CalAmount(UserCart cart)
+        {
+            decimal amount = 0;
+
+            foreach(var item in cart.CartItems)
+            {
+                var discount = await _discountRepository.FindByIdAsync(item.Product.DiscountId.ToString());
+                if (discount != null && discount.Active)
+                {
+                    amount += item.Quantity * item.Product.Price * (1 - discount.DiscountPercent / 100);
+                }
+                else
+                {
+                    amount += item.Quantity * item.Product.Price;
+                }
+            }
+            return amount;
+        }
+
+        public override async Task UpdateAsync(UserCart cart)
+        {
+            cart.Total = await CalAmount(cart);
+            await base.UpdateAsync(cart);
         }
     }
 }

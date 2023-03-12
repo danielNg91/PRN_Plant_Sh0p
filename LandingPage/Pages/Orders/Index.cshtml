@@ -12,9 +12,6 @@
             <h2 class="h2 inverse">Order List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-page="create" class="btn btn-primary rounded-pill">
-                <i class="bi bi-plus-square"></i> &nbsp;Add New Order
-            </a>
         </div>
     </div>
 
@@ -42,15 +39,7 @@
             @foreach (var obj in Model.Orders)
             {
                 <tr>
-                    <td width="10%">
-                    @foreach (var user in Model.Users)
-                    {
-                        @if (@user.Id == @obj.UserId)
-                        {
-                            @user.Fullname
-                        }
-                    }
-                    </td>
+                    <td width="10%">@obj.User.Fullname</td>
                     <td width="20%">@obj.Total</td>
                     <td width="20%">@obj.PaymentStatus</td>
                     <td width="20%">@obj.DeliveryStatus</td>

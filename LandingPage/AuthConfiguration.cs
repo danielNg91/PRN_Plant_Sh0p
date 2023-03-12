@@ -14,9 +14,9 @@ namespace PlantShop
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(PolicyName.ADMIN,
-                    policy => policy.RequireClaim(ClaimTypes.Role, nameof(Roles.Admin)));
+                    policy => policy.RequireClaim(ClaimTypes.Role, nameof(Role.Admin)));
                 options.AddPolicy(PolicyName.CUSTOMER,
-                    policy => policy.RequireClaim(ClaimTypes.Role, nameof(Roles.Customer)));
+                    policy => policy.RequireClaim(ClaimTypes.Role, nameof(Role.Customer)));
             });
             services.AddRazorPages((options) =>
             {

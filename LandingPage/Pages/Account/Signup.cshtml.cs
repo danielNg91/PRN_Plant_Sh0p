@@ -22,21 +22,7 @@ namespace PlantShop.Pages.Signup
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            if ( 
-                User != null &&
-                User.Username != null &&
-                User.Password != null &&
-                User.Fullname != null &&
-                User.Telephone != null &&
-                User.Email != null &&
-                User.Address != null &&
-                User.Username.Trim() != "" &&
-                User.Password.Trim() != "" &&
-                User.Fullname.Trim() != "" &&
-                User.Telephone.Trim() != "" &&
-                User.Email.Trim() != "" &&
-                User.Address.Trim() != ""
-            )
+            if (ModelState.IsValid)
             {
                 var user = await _userRepository.FirstOrDefaultAsync(u => u.Username == User.Username);
                 if (user == null)
@@ -52,7 +38,7 @@ namespace PlantShop.Pages.Signup
                 return Page();
             }
 
-            Message = "Don't leave any field emmpty";
+            Message = "";
             return Page();
         }
     }

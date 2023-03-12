@@ -28,7 +28,7 @@ namespace PlantShop.Pages.Products
             var currentUser = User.FindFirst(x => x.Type == "id").Value;
             Cart = await _cartRepository.GetCartByUser(currentUser);
         }
-        
+
         private string getCurrentUserId()
         {
             if (!User.Identity.IsAuthenticated)

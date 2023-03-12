@@ -37,7 +37,7 @@ namespace PlantShop.Pages.Login
                     {
                         new Claim("id", user.Id.ToString()),
                         new Claim(ClaimTypes.Name, user.Username),
-                        new Claim(ClaimTypes.Role, user.IsAdmin ? nameof(Roles.Admin) : nameof(Roles.Customer))
+                        new Claim(ClaimTypes.Role, user.IsAdmin ? nameof(Role.Admin) : nameof(Role.Customer))
                     };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var authProperties = new AuthenticationProperties()

@@ -14,11 +14,12 @@ namespace Persistence.Models
         {
             Products = new HashSet<Product>();
         }
-
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         [Range(0, 100), Display(Name = "Discount Percent")]
         public decimal DiscountPercent { get; set; }
+        [Required]
         public bool Active { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }

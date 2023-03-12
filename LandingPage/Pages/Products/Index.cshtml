@@ -3,7 +3,7 @@
 @model PlantShop.Pages.Products.IndexModel
 @{
     ViewData["Title"] = "Index";
-    var isAdmin = User.IsInRole(nameof(Roles.Admin));
+    var isAdmin = User.IsInRole(nameof(Role.Admin));
 }
 
 
