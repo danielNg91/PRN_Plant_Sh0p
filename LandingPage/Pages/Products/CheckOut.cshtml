@@ -46,6 +46,8 @@
                 </select>
             </div>
 
+            <input type="hidden" value="@Model.Cart.Id" name="cartId"/>
+
             <button type="submit" class="btn btn-primary" style="width:150px;">Check Out</button>
             <a asp-page="Cart" class="btn btn-secondary" style="width:150px;"> Back to Cart</a>
 

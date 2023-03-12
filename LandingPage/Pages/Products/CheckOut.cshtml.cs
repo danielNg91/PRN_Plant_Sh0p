@@ -36,13 +36,13 @@ namespace PlantShop.Pages.Products
         {
             User = await _userRepository.FindByIdAsync(CurrentUserId);
             Cart = await _cartRepository.FindByIdAsync(cartId);
-            Order = await _orderRepository.FirstOrDefaultAsync(o => o.CartId.ToString() == cartId);
         }
-        public async Task<IActionResult> OnPostCheckoutAsync()
+        public async Task<IActionResult> OnPostCheckoutAsync(string cartId)
         {
+            Order = await _orderRepository.FirstOrDefaultAsync(o => o.CartId.ToString() == cartId);
             Order.PaymentStatus = true;
             await _orderRepository.UpdateAsync(Order);
-            return RedirectToPage("Orders/Index");
+            return RedirectToPage("/Orders/Index");
         }
     }
 }

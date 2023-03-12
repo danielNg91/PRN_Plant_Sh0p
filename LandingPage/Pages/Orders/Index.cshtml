@@ -32,7 +32,11 @@
                 <th>
                     Deliverty Status
                 </th>
-                <th></th>
+
+                @if (@Model.IsAdmin)
+                {
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -43,16 +47,19 @@
                     <td width="20%">@obj.Total</td>
                     <td width="20%">@obj.PaymentStatus</td>
                     <td width="20%">@obj.DeliveryStatus</td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
-                        </div>
-                    </td>
+                    @if (@Model.IsAdmin)
+                    {
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    }
                 </tr>
             }
 
