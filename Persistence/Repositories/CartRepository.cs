@@ -68,7 +68,7 @@ namespace Persistence.Repositories
                 cart.CartItems.Add(new CartItem
                 {
                     CartId = cart.Id,
-                    ProductId = product.Id,
+                    Product = product,
                     Quantity = quantity,
                     CreatedAt = DateTime.Now,
                 });
@@ -134,7 +134,7 @@ namespace Persistence.Repositories
                 var discount = await _discountRepository.FindByIdAsync(item.Product.DiscountId.ToString());
                 if (discount != null && discount.Active)
                 {
-                    amount += item.Quantity * item.Product.Price * (1 - discount.DiscountPercent / 100);
+                    amount += item.Quantity * item.Product.Price * (1 - discount.DiscountPercent);
                 }
                 else
                 {

@@ -128,7 +128,7 @@
                         <a asp-page="Index" class="btn btn-primary btn-lg btn-block">
                             <i class="bi bi-basket2"></i> Continue Shopping
                         </a>
-                        <a asp-page="Index" class="btn btn-primary btn-lg btn-block">
+                        <a asp-page="Checkout" class="btn btn-primary btn-lg btn-block" asp-route-cartId="@Model.Cart.Id">
                             <i class="bi bi-clipboard-check"></i> Go to checkout
                         </a>
                     </div>

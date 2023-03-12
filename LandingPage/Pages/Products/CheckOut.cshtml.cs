@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Persistence.Constants;
 using Persistence.Models;
 using Persistence.Repositories;
 using System.Collections.Generic;
@@ -7,36 +9,40 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Products
 {
+    [Authorize(Policy = PolicyName.CUSTOMER)]
+    [BindProperties]
     public class CheckOut : BasePageModel
     {
         private readonly CartRepository _cartRepository;
-        private readonly GenericRepository<CartItem> _cartItemRepository;
         private readonly GenericRepository<Order> _orderRepository;
-        private readonly GenericRepository<OrderItem> _orderItemRepository;
+        private readonly GenericRepository<User> _userRepository;
+        public User User { get; set; }
+        public Order Order { get; set; }
+        public UserCart Cart { get; set; }
 
-        public CheckOut(CartRepository cartRepository, GenericRepository<CartItem> cartItemRepository, GenericRepository<Order> orderRepository, GenericRepository<OrderItem> orderItemRepository)
+
+        public CheckOut(
+            CartRepository cartRepository, 
+            GenericRepository<Order> orderRepository, 
+            GenericRepository<User> userRepository)
         {
             _cartRepository = cartRepository;
-            _cartItemRepository = cartItemRepository;
             _orderRepository = orderRepository;
-            _orderItemRepository = orderItemRepository;
+            _userRepository = userRepository;
+
         }
 
-        public UserCart Cart { get; set; }
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
-        public Order Order { get; set; }
-        public async Task<IActionResult> OnPostAsync()
+        public async void OnGetAsync(string cartId)
         {
-            if (ModelState.IsValid)
-            {
-                //execute to create order
-
-
-                //----------------------------------------------------------------
-                TempData["success"] = "Product created successfully";
-                return RedirectToPage("Cart/Index");
-            }
-            return Page();
+            User = await _userRepository.FindByIdAsync(CurrentUserId);
+            Cart = await _cartRepository.FindByIdAsync(cartId);
+            Order = await _orderRepository.FirstOrDefaultAsync(o => o.CartId.ToString() == cartId);
+        }
+        public async Task<IActionResult> OnPostCheckoutAsync()
+        {
+            Order.PaymentStatus = true;
+            await _orderRepository.UpdateAsync(Order);
+            return RedirectToPage("Orders/Index");
         }
     }
 }

@@ -37,13 +37,8 @@ namespace PlantShop.Pages.Products
 
         public async Task<IActionResult> OnPostAddToCartAsync(string Id)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("Account/Login");
-            }
-            var currentUser = User.FindFirst(t => t.Type == "id").Value;
-            var item = await _productRepository.FindByIdAsync(Id.ToString());
-            await _cartRepository.AddItem(currentUser, item);
+            var item = await _productRepository.FindByIdAsync(Id, nameof(Product.Discount));
+            await _cartRepository.AddItem(CurrentUserId, item);
             return RedirectToAction("Index");
         }
     }

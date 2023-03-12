@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,6 +24,7 @@ namespace Persistence.Models
         public string Password { get; set; }
 
         [Required]
+        [DisplayName("Full name")]
         public string Fullname { get; set; }
 
         [Required, MinLength(6), MaxLength(15)]

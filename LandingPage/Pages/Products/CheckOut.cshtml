@@ -3,83 +3,58 @@
 @{
     ViewData["title"] = "Check Out";
 }
+<div class="container p-3">
+    <form method="post" asp-page-handler="Checkout">
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary pl-3">Check Out</h2>
+                <hr />
+            </div>
+            <div asp-validation-summary="All"></div>
+            <div class="mb-3">
+                <label asp-for="User.Fullname"></label>
+                <input asp-for="User.Fullname" class="form-control" />
+                <span asp-validation-for="User.Fullname" class="text-danger"></span>
+            </div>
 
+            <div class="mb-3">
+                <label asp-for="User.Address"></label>
+                <input asp-for="User.Address" class="form-control" />
+                <span asp-validation-for="User.Address" class="text-danger"></span>
+            </div>
 
-<form method="post">
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary pl-3">Check Out</h2>
-            <hr />
-        </div>
-        <div asp-validation-summary="All"></div>
-        <div class="mb-3">
-            <label asp-for="Order.Id"></label>
-            <input asp-for="Order.Id" class="form-control" />
-            <span asp-validation-for="Order.Id" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Order.Total"></label>
-            <input asp-for="Order.Total" class="form-control" />
-            <span asp-validation-for="Order.Total" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Order.PaymentStatus"></label>
-            <input asp-for="Order.PaymentStatus" class="form-control" />
-            <span asp-validation-for="Order.PaymentStatus" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Order.DeliveryStatus"></label>
-            <input asp-for="Order.DeliveryStatus" class="form-control" />
-            <span asp-validation-for="Order.DeliveryStatus" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <table class="table table-bordered table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>
-                            Product Name
-                        </th>
-                        <th>
-                            Image
-                        </th>
-                        <th>
-                            Category
-                        </th>
-                        <th>
-                            Quantity
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Discount
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var obj in Model.CartItems)
-                    {
-                        <tr>
-                            <td width="20%">@obj.Product.Name</td>
-                            <td width="20%"><img src="@obj.Product.Description" /></td>
-                            <td width="10%">@obj.Product.Category</td>
-                            <td width="10%">@obj.Quantity</td>
-                            <td width="10%">@obj.Product.Price</td>
-                            <td width="10%">@obj.Product.Discount</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:150px;">Check Out</button>
-        <a asp-page="Index" class="btn btn-secondary" style="width:150px;"> Back to Cart</a>
+            <div class="mb-3">
+                <label asp-for="User.Telephone"></label>
+                <input asp-for="User.Telephone" class="form-control" />
+                <span asp-validation-for="User.Telephone" class="text-danger"></span>
+            </div>
 
-    </div>
+            <div class="mb-3">
+                <label asp-for="User.Email"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
 
-</form>
+            <div class="mb-3">
+                <label>Amount</label>
+                <input asp-for="Cart.Total" class="form-control" readonly />
+            </div>
 
+            <div class="mb-3">
+                <select class="form-control">
+                    <option>Cash On Delivery</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:150px;">Check Out</button>
+            <a asp-page="Cart" class="btn btn-secondary" style="width:150px;"> Back to Cart</a>
+
+        </div>
+
+    </form>
+</div>
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-}
+    }
