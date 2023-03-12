@@ -28,54 +28,43 @@ namespace PlantShop.Pages.Products
             var currentUser = User.FindFirst(x => x.Type == "id").Value;
             Cart = await _cartRepository.GetCartByUser(currentUser);
         }
-        public async Task<IActionResult> OnPostRemoveItemAsync(string Id)
+        
+        private string getCurrentUserId()
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Redirect("Account/Login");
+                Redirect("Account/Login");
+                return null;
             }
-            var currentUser = User.FindFirst(x => x.Type == "id").Value;
+            return User.FindFirst(x => x.Type == "id").Value;
+        }
+        
+        public async Task<IActionResult> OnPostRemoveItemAsync(string Id)
+        {
+            var currentUser = getCurrentUserId();
             await _cartRepository.RemoveItem(currentUser, Id);
-            return RedirectToAction("Index");
+            return RedirectToPage("Cart");
         }
 
         public async Task<IActionResult> OnPostClearItemAsync()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("Account/Login");
-            }
-            var currentUser = User.FindFirst(x => x.Type == "id").Value;
+            var currentUser = getCurrentUserId();
             await _cartRepository.ClearCart(currentUser);
             return RedirectToPage("Cart");
         }
 
         public async Task<IActionResult> OnPostIncreaseAmountAsync(string Id)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("Account/Login");
-            }
-            var currentUser = User.FindFirst(x => x.Type == "id").Value;
+            var currentUser = getCurrentUserId();
             await _cartRepository.IncreaseAmount(currentUser, Id);
             return RedirectToPage("Cart");
         }
 
-        public async Task<IActionResult> OnPostDecreaseAmounttAsync(string Id)
+        public async Task<IActionResult> OnPostDecreaseAmountAsync(string Id)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("Account/Login");
-            }
-            var currentUser = User.FindFirst(x => x.Type == "id").Value;
+            var currentUser = getCurrentUserId();
             await _cartRepository.DecreaseAmount(currentUser, Id);
             return RedirectToPage("Cart");
         }
-
-        //public async Task<IActionResult> OnPostRemoveToCartAsync(int cartId, int cartItemId)
-        //{
-        //    await _cartRepository.RemoveItem(cartId, cartItemId);
-        //    return RedirectToPage();
-        //}
     }
 }

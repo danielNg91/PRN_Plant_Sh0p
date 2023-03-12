@@ -44,7 +44,6 @@
                                     </p>
 
                                     <form asp-page-handler="RemoveItem" method="post">
-                                        @*<input asp-for="@obj.Id" />*@
                                         <input hidden type="text" name="Id" value="@obj.Id" />
                                         <button type="submit" class="btn btn-danger mx-2">
                                             <i class="bi bi-trash-fill"></i>
@@ -66,7 +65,7 @@
                                         </form>
 
                                         <div class="form-outline">
-                                            <input min="0" name="quantity" value="@obj.Quantity" type="number" class="form-control" />
+                                            <input min="0" name="quantity" value="@obj.Quantity" type="number" class="form-control" readonly />
                                         </div>
 
                                         <form asp-page-handler="IncreaseAmount" method="post">

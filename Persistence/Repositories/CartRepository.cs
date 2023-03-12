@@ -96,10 +96,10 @@ namespace Persistence.Repositories
             //await _context.SaveChangesAsync();
         }
 
-        public async Task IncreaseAmount(string id, string itemId)
+        public async Task IncreaseAmount(string userId, string itemId)
         {
-            var cart = await GetCartByUser(id);
-            var itemExist = cart.CartItems.FirstOrDefault(i => i.Product.Id.ToString() == itemId);
+            var cart = await GetCartByUser(userId);
+            var itemExist = cart.CartItems.First(item => item.Id.ToString() == itemId);
             if (itemExist != null && itemExist.Quantity > 0)
             {
                 itemExist.Quantity++;
@@ -107,17 +107,17 @@ namespace Persistence.Repositories
             await UpdateAsync(cart);
 
         }
-        public async Task DecreaseAmount(string id, string itemId)
+        public async Task DecreaseAmount(string userId, string itemId)
         {
-            var cart = await GetCartByUser(id);
-            var itemExist = cart.CartItems.FirstOrDefault(i => i.Product.Id.ToString() == itemId);
+            var cart = await GetCartByUser(userId);
+            var itemExist = cart.CartItems.FirstOrDefault(i => i.Id.ToString() == itemId);
             if (itemExist != null && itemExist.Quantity > 0)
             {
                 itemExist.Quantity--;
             }
             if (itemExist != null && itemExist.Quantity < 0)
             {
-                await RemoveItem(id, itemExist.Id.ToString());
+                await RemoveItem(userId, itemExist.Id.ToString());
             }
             await UpdateAsync(cart);
         }
