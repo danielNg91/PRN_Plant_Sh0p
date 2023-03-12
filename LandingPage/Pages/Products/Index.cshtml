@@ -3,7 +3,6 @@
 @model PlantShop.Pages.Products.IndexModel
 @{
     ViewData["Title"] = "Index";
-    var isAdmin = User.IsInRole(nameof(Role.Admin));
 }
 
 
@@ -13,7 +12,7 @@
         <div class="col-6">
             <h2 class="h2 inverse">Product List</h2>
         </div>
-        @if (isAdmin)
+        @if (@Model.IsAdmin)
         {
             <div class="col-6 text-right">
                 <a asp-page="create" class="btn btn-primary rounded-pill">
@@ -85,12 +84,15 @@
 @*                            <a asp-page-handler="AddToCart" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                 <i class="bi bi-cart-plus"></i>
                             </a>*@
-                            <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
+                            @if (@Model.IsAdmin)
+                            {
+                                <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            }
                         </div>
                     </td>
                 </tr>

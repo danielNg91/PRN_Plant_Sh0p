@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Models;
 using Persistence.Repositories;
 using System.Threading.Tasks;
+using Persistence.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PlantShop.Pages.Products
 {
+    [Authorize(Policy = PolicyName.ADMIN)]
     [BindProperties]
     public class EditModel : BasePageModel
     {

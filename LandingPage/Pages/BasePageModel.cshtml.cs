@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Persistence.Constants;
 
 namespace PlantShop.Pages
 {
     public class BasePageModel : PageModel
     {
-        protected bool IsAdmin => IsCurrentUserAdmin();
-        protected string CurrentUserId => GetCurrentUserId();
+        [BindProperty]
+        public bool IsAdmin => IsCurrentUserAdmin();
+        [BindProperty]
+        public string CurrentUserId => GetCurrentUserId();
 
         private bool IsCurrentUserAdmin()
         {
