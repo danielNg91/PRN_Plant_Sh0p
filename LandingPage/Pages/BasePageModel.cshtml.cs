@@ -3,7 +3,7 @@ using Persistence.Constants;
 
 namespace PlantShop.Pages
 {
-    public class BaseModel : PageModel
+    public class BasePageModel : PageModel
     {
         protected bool IsAdmin => IsCurrentUserAdmin();
         protected string CurrentUserId => GetCurrentUserId();
@@ -15,6 +15,11 @@ namespace PlantShop.Pages
 
         private string GetCurrentUserId()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                Redirect("Account/Login");
+                return null;
+            }
             return User.FindFirst(x => x.Type == "id").Value;
         }
     }

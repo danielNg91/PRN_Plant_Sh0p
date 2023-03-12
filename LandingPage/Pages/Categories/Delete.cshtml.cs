@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Categories
 {
     [BindProperties]
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
         private readonly GenericRepository<ProductCategory> _categoryRepository;
         public ProductCategory Category { get; set; }

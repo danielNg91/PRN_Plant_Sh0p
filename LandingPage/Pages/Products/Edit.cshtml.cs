@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Products
 {
     [BindProperties]
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _categoryRepository;

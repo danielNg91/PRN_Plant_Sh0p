@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Login
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<User> _userRepository;
         public IndexModel(GenericRepository<User> userRepository)

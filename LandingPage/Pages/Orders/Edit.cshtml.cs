@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Orders
 {
     [BindProperties]
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
         private readonly GenericRepository<Order> _orderRepository;
         private readonly GenericRepository<OrderItem> _orderItemRepository;

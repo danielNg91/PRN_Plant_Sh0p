@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Discounts
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<ProductDiscount> _discountRepository;
         public List<ProductDiscount> Discounts { get; set; }

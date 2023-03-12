@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Orders
 {
     [BindProperties]
-    public class DeleteModel : PageModel
+    public class DeleteModel : BasePageModel
     {
         private readonly GenericRepository<Order> _orderCategory;
         public Order Order { get; set; }

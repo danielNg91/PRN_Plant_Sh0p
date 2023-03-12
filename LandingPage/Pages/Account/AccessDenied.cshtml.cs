@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace PlantShop.Pages.Login
 {
-    public class AccessDeniedModel : PageModel
+    public class AccessDeniedModel : BasePageModel
     {
         public void OnGet()
         {

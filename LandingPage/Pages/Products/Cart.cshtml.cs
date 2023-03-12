@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Products
 {
-    public class CartModel : PageModel
+    public class CartModel : BasePageModel
     {
         private readonly CartRepository _cartRepository;
         private readonly GenericRepository<ProductDiscount> _productDiscountRepository;
-        private readonly GenericRepository<CartItem> _cartItemRepository;
         public UserCart Cart { get; set; }
         public List<ProductDiscount> ProductDiscounts { get; set; }
         public CartModel(CartRepository cartRepository, GenericRepository<ProductDiscount> productDiscountRepository, GenericRepository<CartItem> cartItemRepository)
         {
             _cartRepository = cartRepository;
             _productDiscountRepository = productDiscountRepository;
-            _cartItemRepository = cartItemRepository;
         }
         public async Task OnGetAsync()
         {
@@ -28,42 +26,28 @@ namespace PlantShop.Pages.Products
             var currentUser = User.FindFirst(x => x.Type == "id").Value;
             Cart = await _cartRepository.GetCartByUser(currentUser);
         }
-
-        private string getCurrentUserId()
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                Redirect("Account/Login");
-                return null;
-            }
-            return User.FindFirst(x => x.Type == "id").Value;
-        }
         
         public async Task<IActionResult> OnPostRemoveItemAsync(string Id)
         {
-            var currentUser = getCurrentUserId();
-            await _cartRepository.RemoveItem(currentUser, Id);
+            await _cartRepository.RemoveItem(CurrentUserId, Id);
             return RedirectToPage("Cart");
         }
 
         public async Task<IActionResult> OnPostClearItemAsync()
         {
-            var currentUser = getCurrentUserId();
-            await _cartRepository.ClearCart(currentUser);
+            await _cartRepository.ClearCart(CurrentUserId);
             return RedirectToPage("Cart");
         }
 
         public async Task<IActionResult> OnPostIncreaseAmountAsync(string Id)
         {
-            var currentUser = getCurrentUserId();
-            await _cartRepository.IncreaseAmount(currentUser, Id);
+            await _cartRepository.IncreaseAmount(CurrentUserId, Id);
             return RedirectToPage("Cart");
         }
 
         public async Task<IActionResult> OnPostDecreaseAmountAsync(string Id)
         {
-            var currentUser = getCurrentUserId();
-            await _cartRepository.DecreaseAmount(currentUser, Id);
+            await _cartRepository.DecreaseAmount(CurrentUserId, Id);
             return RedirectToPage("Cart");
         }
     }

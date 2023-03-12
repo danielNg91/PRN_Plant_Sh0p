@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Products
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _productCategoryRepository;

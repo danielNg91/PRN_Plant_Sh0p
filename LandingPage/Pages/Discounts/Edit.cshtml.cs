@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Discounts
 {
     [BindProperties]
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
         private readonly GenericRepository<ProductDiscount> _discountRepository;
         [BindProperty]

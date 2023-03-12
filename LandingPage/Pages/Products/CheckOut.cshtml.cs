@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Products
 {
-    public class CheckOut : PageModel
+    public class CheckOut : BasePageModel
     {
         private readonly CartRepository _cartRepository;
         private readonly GenericRepository<CartItem> _cartItemRepository;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Orders
 {
-    public class IndexModel : BaseModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<Order> _orderRepository;
 

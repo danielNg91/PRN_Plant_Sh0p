@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Account
 {
-    public class LogoutModel : PageModel
+    public class LogoutModel : BasePageModel
     {
         public async Task<IActionResult> OnPostAsync()
         {

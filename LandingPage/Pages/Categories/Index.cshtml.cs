@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Categories
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<ProductCategory> _categoryRepostory;
         public List<ProductCategory> Categories { get; set; }

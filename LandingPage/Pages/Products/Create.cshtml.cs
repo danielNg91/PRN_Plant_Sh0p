@@ -10,7 +10,7 @@ using Persistence.Constants;
 namespace PlantShop.Pages.Products
 {
     [Authorize(Policy = PolicyName.ADMIN)]
-    public class CreateModel : PageModel
+    public class CreateModel : BasePageModel
     {
         private readonly GenericRepository<Product> _productRepository;
         private readonly GenericRepository<ProductCategory> _categoryRepository;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Signup
 {
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly GenericRepository<User> _userRepository;
         [BindProperty] public User User { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PlantShop.Pages.Categories
 {
     [BindProperties]
-    public class EditModel : PageModel
+    public class EditModel : BasePageModel
     {
         private readonly GenericRepository<ProductCategory> _categoryRepository;
         [BindProperty]
