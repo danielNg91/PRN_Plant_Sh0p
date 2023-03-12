@@ -6,129 +6,137 @@
     var isAdmin = User.IsInRole(nameof(Roles.Admin));
 }
 
-@if (isAdmin)
-{
+
     <div class="container p-3" style="background-color: #F3F3F3;">
-    <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="h2 inverse">Product List</h2>
-        </div>
         @if (isAdmin)
         {
-            <div class="col-6 text-right">
-                <a asp-page="create" class="btn btn-primary rounded-pill">
-                    <i class="bi bi-plus-square"></i> &nbsp;Add New Product
-                </a>
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="h2 inverse">Product List</h2>
             </div>
-        }
-    </div>
+            @if (isAdmin)
+            {
+                <div class="col-6 text-right">
+                    <a asp-page="create" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-square"></i> &nbsp;Add New Product
+                    </a>
+                </div>
+            }
+        </div>
 
-    <br /><br />
+        <br /><br />
 
-    <table class="table table-bordered table-striped" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    Product Name
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Quantity
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Discount
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Discount
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model.ProductList)
+                {
+                    <tr>
+                        <td width="20%">@obj.Name</td>
+                        <td width="20%"><img src="@obj.Description" /></td>
+                        <td width="10%">
+                            @foreach (var cate in Model.ProductCategories)
+                            {
+                                if (@cate.Id == @obj.CategoryId)
+                                {
+                                    @cate.Name
+                                }
+                            }
+                        </td>
+                        <td width="10%">@obj.Quantity</td>
+                        <td width="10%">@obj.Price</td>
+                        <td width="10%">
+                            @foreach (var discount in Model.ProductDiscounts)
+                            {
+                                if (@discount.Id == @obj.DiscountId)
+                                {
+                                    @discount.DiscountPercent
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                    @if(!isAdmin)
+                                    {
+                                        <form asp-page-handler="AddToCart" method="post">
+                                            <input hidden type="text" name="Id" value="@obj.Id" />
+                                            <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-cart-plus"></i></button>
+                                        </form>
+                                    }
+                                <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+     </table>
+
+     }
+
+     
+    @if(!isAdmin)
+    {
+        <div class="row row-cols-4 pt-2">
             @foreach (var obj in Model.ProductList)
             {
-                <tr>
-                    <td width="20%">@obj.Name</td>
-                    <td width="20%"><img src="@obj.Description" /></td>
-                    <td width="10%">
-                        @foreach (var cate in Model.ProductCategories)
-                        {
-                            if (@cate.Id == @obj.CategoryId)
-                            {
-                                @cate.Name
-                            }
-                        }
-                    </td>
-                    <td width="10%">@obj.Quantity</td>
-                    <td width="10%">@obj.Price</td>
-                    <td width="10%">
-                        @foreach (var discount in Model.ProductDiscounts)
-                        {
-                            if (@discount.Id == @obj.DiscountId)
-                            {
-                                @discount.DiscountPercent
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <form asp-page-handler="AddToCart" method="post">
-                                <input hidden type="text" name="Id" value="@obj.Id" />
-                                <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-cart-plus"></i></button>
-                            </form>
-                            <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a asp-page="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
+                <div class="col-3"
+                    style="height: 70vh; border-right: 0.2px solid var(--secondary); border-bottom: 0.2px solid var(--secondary); padding: 1vw;"
+                >
+                 <div class="content">
+                    <a>
+                        <div class="content-overlay"></div>
+                        <img style="border-left: 1px solid var(--primary)" class="content-image" src="@obj.Description" alt="">
+                        <div class="content-details fadeIn-bottom d-flex justify-content-center">
+                            <div class="w-75 btn-group align-self-center d-flex justify-content-center" role="group">
+                                <form asp-page-handler="AddToCart" method="post">
+                                    <input hidden type="text" name="Id" value="@obj.Id" />
+                                    <button type="submit" class="btn btn-outline-primary mx-2 rounded-pill">Add to Cart</button>
+                                </form>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
- </table>
- </div>
- }
-
-
-
-    
-<div class="row row-cols-4 pt-2">
-    @foreach (var obj in Model.ProductList)
-{
-    <div class="col-3"
-        style="height: 70vh; border-right: 0.2px solid var(--secondary); border-bottom: 0.2px solid var(--secondary); padding: 1vw;"
-    >
-        <div class="content">
-        <a>
-            <div class="content-overlay"></div>
-            <img style="border-left: 1px solid var(--primary)" class="content-image" src="@obj.Description" alt="">
-            <div class="content-details fadeIn-bottom d-flex justify-content-center">
-                <div class="w-75 btn-group align-self-center d-flex justify-content-center" role="group">
-                    <form asp-page-handler="AddToCart" method="post">
-                        <input hidden type="text" name="Id" value="@obj.Id" />
-                        <button type="submit" class="btn btn-outline-primary mx-2 rounded-pill">Add to Cart</button>
-                    </form>
+                    </a>
                 </div>
-            </div>
-        </a>
-    </div>
                 
-        <div class="d-flex justify-content-between pt-2 align-bottom">
-            <div style="font-size: 0.8rem;">@obj.Name</div>
-            <div style="font-size: 0.8rem;">@obj.Price</div>
+                    <div class="d-flex justify-content-between pt-2 align-bottom">
+                        <div style="font-size: 0.8rem;">@obj.Name</div>
+                        <div style="font-size: 0.8rem;">@obj.Price</div>
+                    </div>
+                
+                </div>
+            }
         </div>
-                
-    </div>
-}
-</div>
+    }
 
+       
+
+</div>
 <style>
     img {
         height: 20vh;
