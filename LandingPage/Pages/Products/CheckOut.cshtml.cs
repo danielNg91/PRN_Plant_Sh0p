@@ -16,6 +16,7 @@ namespace PlantShop.Pages.Products
         private readonly CartRepository _cartRepository;
         private readonly GenericRepository<Order> _orderRepository;
         private readonly GenericRepository<User> _userRepository;
+        private readonly GenericRepository<Product> _productRepository;
         public User User { get; set; }
         public Order Order { get; set; }
         public UserCart Cart { get; set; }
@@ -23,13 +24,14 @@ namespace PlantShop.Pages.Products
 
         public CheckOut(
             CartRepository cartRepository, 
-            GenericRepository<Order> orderRepository, 
-            GenericRepository<User> userRepository)
+            GenericRepository<Order> orderRepository,
+            GenericRepository<User> userRepository,
+            GenericRepository<Product> productRepository)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
-
+            _productRepository = productRepository;
         }
 
         public async void OnGetAsync(string cartId)
@@ -39,6 +41,13 @@ namespace PlantShop.Pages.Products
         }
         public async Task<IActionResult> OnPostCheckoutAsync(string cartId)
         {
+            Cart = await _cartRepository.GetCartByUser(CurrentUserId);
+            foreach (var item in Cart.CartItems)
+            {
+                var prod = item.Product;
+                prod.Quantity = prod.Quantity - item.Quantity;
+                await _productRepository.UpdateAsync(prod);
+            }
             Order = await _orderRepository.FirstOrDefaultAsync(o => o.CartId.ToString() == cartId);
             Order.PaymentStatus = true;
             await _orderRepository.UpdateAsync(Order);

@@ -108,7 +108,6 @@ namespace Persistence.Repositories
                 itemExist.Quantity++;
             }
             await UpdateAsync(cart);
-
         }
         public async Task DecreaseAmount(string userId, string itemId)
         {
