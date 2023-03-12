@@ -13,7 +13,7 @@ namespace PlantShop
         {
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(PolicyName.ADMIN, 
+                options.AddPolicy(PolicyName.ADMIN,
                     policy => policy.RequireClaim(ClaimTypes.Role, nameof(Roles.Admin)));
                 options.AddPolicy(PolicyName.CUSTOMER,
                     policy => policy.RequireClaim(ClaimTypes.Role, nameof(Roles.Customer)));
@@ -23,6 +23,8 @@ namespace PlantShop
                 options.Conventions.AuthorizeFolder("/Products").AllowAnonymousToPage("/Products/Index");
                 options.Conventions.AuthorizeFolder("/Categories");
                 options.Conventions.AuthorizeFolder("/Discounts");
+                options.Conventions.AuthorizeFolder("/Orders");
+                options.Conventions.AuthorizeFolder("/Cart");
             });
         }
         public static void AddAppAuthentication(this IServiceCollection services)

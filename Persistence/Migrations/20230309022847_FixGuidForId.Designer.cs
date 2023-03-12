@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230309022847_FixGuidForId")]
+    partial class FixGuidForId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +62,6 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -81,17 +80,12 @@ namespace Persistence.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("UserCartId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DeletedAt");
-
-                    b.HasIndex("UserCartId");
 
                     b.HasIndex("UserId");
 
@@ -334,10 +328,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Persistence.Models.Order", b =>
                 {
-                    b.HasOne("Persistence.Models.UserCart", "UserCart")
-                        .WithMany()
-                        .HasForeignKey("UserCartId");
-
                     b.HasOne("Persistence.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -345,8 +335,6 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-
-                    b.Navigation("UserCart");
                 });
 
             modelBuilder.Entity("Persistence.Models.OrderItem", b =>
