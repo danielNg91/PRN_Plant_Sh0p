@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Persistence.Constants;
 using Persistence.Models;
 using Persistence.Repositories;
 using System.Threading.Tasks;
 
 namespace PlantShop.Pages.Discounts
 {
+
+    [Authorize(Policy = PolicyName.ADMIN)]
     public class CreateModel : BasePageModel
     {
         private readonly GenericRepository<ProductDiscount> _discountRepository;
