@@ -42,6 +42,7 @@
                                             }
                                         }
                                     </p>
+
                                     <form asp-page-handler="RemoveItem" method="post">
                                         @*<input asp-for="@obj.Id" />*@
                                         <input hidden type="text" name="Id" value="@obj.Id" />
@@ -49,6 +50,8 @@
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </form>
+
+
                                     <!-- Data -->
                                 </div>
 
@@ -74,9 +77,9 @@
                                         </form>
 
                                         @*<button class="btn btn-primary mx-2 ms-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="bi bi-plus"></i>
-                                        </button>*@
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                    <i class="bi bi-plus"></i>
+                                    </button>*@
                                     </div>
                                     <!-- Quantity -->
                                     <!-- Price -->
@@ -97,9 +100,12 @@
                             </div>
                             <!-- Single item -->
                         }
-                        <form asp-page-handler="ClearItem" method="post" class="col-12 text-right">
-                            <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-trash"> Clear</i></button>
-                        </form>
+                        @if (Model.Cart.CartItems.Count() > 0)
+                        {
+                            <form asp-page-handler="ClearItem" method="post" class="col-12 text-right">
+                                <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-trash"> Clear</i></button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
