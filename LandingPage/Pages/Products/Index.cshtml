@@ -6,9 +6,9 @@
     var isAdmin = User.IsInRole(nameof(Roles.Admin));
 }
 
-
-
-<div class="container p-3">
+@if (isAdmin)
+{
+    <div class="container p-3" style="background-color: #F3F3F3;">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="h2 inverse">Product List</h2>
@@ -58,7 +58,7 @@
                     <td width="10%">
                         @foreach (var cate in Model.ProductCategories)
                         {
-                            @if (@cate.Id == @obj.CategoryId)
+                            if (@cate.Id == @obj.CategoryId)
                             {
                                 @cate.Name
                             }
@@ -69,7 +69,7 @@
                     <td width="10%">
                         @foreach (var discount in Model.ProductDiscounts)
                         {
-                            @if (@discount.Id == @obj.DiscountId)
+                            if (@discount.Id == @obj.DiscountId)
                             {
                                 @discount.DiscountPercent
                             }
@@ -78,13 +78,9 @@
                     <td>
                         <div class="w-75 btn-group" role="group">
                             <form asp-page-handler="AddToCart" method="post">
-                                @*<input asp-for="@obj.Id" />*@
                                 <input hidden type="text" name="Id" value="@obj.Id" />
                                 <button type="submit" class="btn btn-primary mx-2"><i class="bi bi-cart-plus"></i></button>
                             </form>
-@*                            <a asp-page-handler="AddToCart" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
-                                <i class="bi bi-cart-plus"></i>
-                            </a>*@
                             <a asp-page="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
@@ -96,11 +92,147 @@
                 </tr>
             }
         </tbody>
-    </table>
+ </table>
+ </div>
+ }
 
+
+
+    
+<div class="row row-cols-4 pt-2">
+    @foreach (var obj in Model.ProductList)
+{
+    <div class="col-3"
+        style="height: 70vh; border-right: 0.2px solid var(--secondary); border-bottom: 0.2px solid var(--secondary); padding: 1vw;"
+    >
+        <div class="content">
+        <a>
+            <div class="content-overlay"></div>
+            <img style="border-left: 1px solid var(--primary)" class="content-image" src="@obj.Description" alt="">
+            <div class="content-details fadeIn-bottom d-flex justify-content-center">
+                <div class="w-75 btn-group align-self-center d-flex justify-content-center" role="group">
+                    <form asp-page-handler="AddToCart" method="post">
+                        <input hidden type="text" name="Id" value="@obj.Id" />
+                        <button type="submit" class="btn btn-outline-primary mx-2 rounded-pill">Add to Cart</button>
+                    </form>
+                </div>
+            </div>
+        </a>
+    </div>
+                
+        <div class="d-flex justify-content-between pt-2 align-bottom">
+            <div style="font-size: 0.8rem;">@obj.Name</div>
+            <div style="font-size: 0.8rem;">@obj.Price</div>
+        </div>
+                
+    </div>
+}
 </div>
+
 <style>
     img {
         height: 20vh;
     }
+
+      *, *:before, *:after{
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  box-sizing: border-box;
+}
+
+body{
+  background: #f9f9f9;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.main-title{
+  color: #2d2d2d;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 0.7em 0;
+}
+
+.container .title{
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 90%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.content .content-overlay {
+  background: rgba(0,0,0,0.7);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay{
+  opacity: 1;
+}
+
+.content-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details{
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content-details h3{
+  color: #fff;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+}
+
+.content-details p{
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.fadeIn-bottom{
+  top: 80%;
+}
+
+.btn-outline-primary {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+.btn-outline-primary:hover {
+    background-color: var(--secondary);
+    border: var(--secondary);
+}
 </style>

@@ -47,7 +47,7 @@
 {
     <div class="position-relative w-100 d-flex" style="border: 10vh solid var(--secondary)">
         <div class="vh-100 w-50 d-flex flex-column justify-content-center align-items-center" style="background-color: #161618; color: var(--secondary)">
-            <div class="display-2 font-weight-lighter">@obj.Name</div>
+            <div class="display-2 font-weight-lighter text-center">@obj.Name</div>
             @foreach (var cate in Model.ProductCategories)
             {
                 @if (@cate.Id == @obj.CategoryId)
@@ -148,9 +148,9 @@
         background: transparent;
     }
 
-        .btn-outline-only:hover {
-            background: rgba(224, 240, 218, 0.46);
-        }
+    .btn-outline-only:hover {
+        background: rgba(224, 240, 218, 0.46);
+    }
 
     .logo {
         height: 5vw;

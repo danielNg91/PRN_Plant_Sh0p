@@ -24,10 +24,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-<<<<<<< HEAD
-                    @if (User.IsInRole(Roles.Admin.ToString()))
-                    {
+                    
                         <ul class="navbar-nav flex-grow-1 d-flex">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Products</a>
                             </li>
@@ -40,31 +41,11 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Discounts/Index">Discounts</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Products/Cart">Your Cart</a>
+                            </li>
                         </ul>
-                    }
                     
-=======
-                    <ul class="navbar-nav flex-grow-1 d-flex">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Index">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Categories/Index">Categories</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Discounts/Index">Discounts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Products/Cart">Your Cart</a>
-                        </li>
-                    </ul>
->>>>>>> 6f00290a61fcfca87e5b47b0bdc0a008dff79ae2
                 </div>
                 <div class="mr-2">
                     <partial name="_LoginStatusPartial" />
