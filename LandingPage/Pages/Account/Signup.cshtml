@@ -17,7 +17,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="User.Password"></label>
-                <input asp-for="User.Password" class="form-control" />
+                <input asp-for="User.Password" class="form-control" type="password"/>
                 <span asp-validation-for="User.Password" class="text-danger"></span>
             </div>
             <div class="mb-3">
@@ -27,12 +27,12 @@
             </div>
             <div class="mb-3">
                 <label asp-for="User.Telephone"></label>
-                <input asp-for="User.Telephone" class="form-control" />
+                <input asp-for="User.Telephone" class="form-control" type="tel" pattern="[0-9]*" inputmode="numeric" />
                 <span asp-validation-for="User.Telephone" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="User.Email"></label>
-                <input asp-for="User.Email" class="form-control" />
+                <input asp-for="User.Email" class="form-control" type="email" />
                 <span asp-validation-for="User.Email" class="text-danger"></span>
             </div>
             <div class="mb-3">

@@ -107,7 +107,7 @@ html, body {
     scroll-behavior:smooth;
 }
 
-a {
+a, .btn-link {
     color: var(--secondary);
 }
 
